@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="Css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="Css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="Css/style.css" />
+    <link rel="icon" href="Images/money.ico" type="image/x-icon"/> 
+    <style type="text/css">
+        body {
+            padding-bottom: 40px;
+        }
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+	<form class="form-inline definewidth m20" action="getSearchPageForLoginOperation.html" method="post" id="searchTerms">  
+		用户账号:<input type="text" style="width: 160px"  name="mlName" id="rolename"class="abc input-default" placeholder="" value="$!{mlName}">&nbsp;&nbsp;  
+		用户ip:<input type="text" style="width: 160px" name="mgrIp" id="rolename"class="abc input-default" placeholder="" value="$!{mgrIp}">&nbsp;&nbsp;  
+		用户操作内容:<input type="text" style="width: 160px"  name="mlOperationContent" id="rolename"class="abc input-default" placeholder="" value="$!{mlOperationContent}">&nbsp;&nbsp;  
+		<button type="submit" class="btn btn-primary">查询</button>&nbsp;&nbsp;
+		<button type="button" onclick="clearMgrSearch()" class="btn btn-danger">重置</button>&nbsp;&nbsp; </br>
+		用户目标:<input type="text" style="width: 160px"  name="mlTarget" id="rolename"class="abc input-default" placeholder="" value="$!{mlTarget}">&nbsp;&nbsp; 
+		用户客户端:<input type="text" style="width: 160px"  name="mlMemo" id="rolename"class="abc input-default" placeholder="" value="$!{mlMemo}">&nbsp;&nbsp;  
+	</form>
+	<table class="table table-bordered table-hover definewidth m10" >
+		<thead>
+			<tr>
+			    <th width="8%">id</th>
+			    <th width="15%">用户ip</th>
+			    <th width="15%">用户账号</th>
+			    <th width="31%">用户目标</th>
+			    <th width="9%">用户操作内容</th>
+			    <th width="9%">用户客户端</th>
+			    <th width="17%">用户创建时间</th>
+			</tr>
+		</thead>
+		#foreach($indexlist in $loginListPage)
+			<tr>
+		       <td>$!{indexlist.mlId}</td>
+		       <td>$!{indexlist.mgrIp}</td>
+		       <td>$!{indexlist.mlName}</td>
+		       <td>$!{indexlist.mlTarget}</td>
+		       <td>$!{indexlist.mlOperationContent}</td>
+		       <td>$!{indexlist.mlMemo}</td>
+		       <td>$!{indexlist.mlCreatTimeChange}</td>
+			</tr>
+		#end
+	</table>
+	<center>
+		<input type="hidden" value="$!{maxPage}" id="maxPage">
+		<input type="hidden" value="$!{skipurl}&mgrIp=$!{mgrIp}&mlName=$!{mlName}&mlTarget=$!{mlTarget}&mlOperationContent=$!{mlOperationContent}&mlMemo=$!{mlMemo}&" id="skipurl">
+		<table  style="margin-top: 20px">
+			<tr align="center">
+				<td style="color: darkviolet " >第$!{nowPageNum}页/共$!{maxPage}页</td>
+				<td><a href="$!{skipurl}nowPageNum=1&mgrIp=$!{mgrIp}&mlName=$!{mlName}&mlTarget=$!{mlTarget}&mlOperationContent=$!{mlOperationContent}&mlMemo=$!{mlMemo}" style="color: dodgerblue">首页</a></td>
+				<td>
+					#if($!{nowPageNum}>1)
+					<a href="$!{skipurl}nowPageNum=$!{nowPageNumLast}&mgrIp=$!{mgrIp}&mlName=$!{mlName}&mlTarget=$!{mlTarget}&mlOperationContent=$!{mlOperationContent}&mlMemo=$!{mlMemo}" style="color: dodgerblue">上一页</a>
+					#else
+					上一页
+					#end
+				</td>
+				<td><c:choose>
+					#if($!{nowPageNum}<$!{maxPage})
+					<a href="$!{skipurl}nowPageNum=$!{nowPageNumAdd}&mgrIp=$!{mgrIp}&mlName=$!{mlName}&mlTarget=$!{mlTarget}&mlOperationContent=$!{mlOperationContent}&mlMemo=$!{mlMemo}" style="color: dodgerblue">下一页</a>
+					#else
+					下一页
+					#end
+				</td>
+				<td><a href="$!{skipurl}nowPageNum=$!{maxPage}&mgrIp=$!{mgrIp}&mlName=$!{mlName}&mlTarget=$!{mlTarget}&mlOperationContent=$!{mlOperationContent}&mlMemo=$!{mlMemo}" style="color: dodgerblue">尾页</a></td>
+				<td><input style="width: 30px" type="text" name="" id="nowPageNum"> <a href="javascript:skip()"  style="color: deeppink " >跳  转</a></td>
+			</tr>
+		</table>
+	</center>
+    <script type="text/javascript" src="Js/jquery.js"></script>
+    <script type="text/javascript" src="Js/bootstrap.js"></script>
+    <script type="text/javascript" src="Js/ckform.js"></script>
+    <script type="text/javascript" src="Js/common.js"></script>
+    <script type="text/javascript" src="Js/myJs.js"></script>
+</body>
+</html>

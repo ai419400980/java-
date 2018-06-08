@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>碎言碎语----一个站在web后端设计之路的男青年个人博客网站</title>
+	<meta name="keywords" content="个人博客,梁钟霖个人博客,个人博客模板,梁钟霖,模板分享,个人博客模板,html模板" />
+	<meta name="description" content="梁钟霖个人博客网站----一个站在web后端设计之路的男青年个人博客网站，提供html模板和博客模板免费资源下载的个人原创网站。" />
+	<link href="css/base.css" rel="stylesheet">
+	<link href="css/mood.css" rel="stylesheet">
+	<link rel="icon" href="images/money.ico" type="image/x-icon"/> 
+</head>
+<body>
+	<header>
+		<div id="logo"><a href="/"></a></div>
+		<nav class="topnav" id="topnav">
+			<a href="index.html"><span>首页</span><span class="en">Protal</span></a>
+			<a href="about.html"><span>关于我</span><span class="en">About</span></a>
+			<a href="slowlife.html"><span>慢生活</span><span class="en">Life</span></a>
+			<a href="knowledge.html"><span>学无止境</span><span class="en">Learn</span></a>
+			<a href="success.html"><span>模板分享</span><span class="en">Success</span></a>
+			<a href="mood.html"><span>碎言碎语</span><span class="en">Moods</span></a>
+			<a href="message.html"><span>留言版</span><span class="en">Message</span></a>
+		</nav>
+	</header>
+	<div class="moodlist">
+		<h1 class="t_nav"><span>删删写写，回回忆忆，虽无法行云流水，却也可碎言碎语。</span><a href="/" class="n1">网站首页</a><a href="/" class="n2">碎言碎语</a></h1>
+		<div class="bloglist">
+			#foreach($indexlist in $listMood)
+				<ul class="arrow_box">
+					<div class="sy">
+						<img src="images/001.png">
+					    <p> $!indexlist.moContent</p>
+					</div>
+				    <span class="dateview">$!indexlist.moCreatTimeChange</span>
+				</p>
+				</ul>
+			#end
+		</div>
+		<center>
+			<input type="hidden" value="$!{maxPage}" id="maxPage">
+			<input type="hidden" value="mood.html?" id="skipurl">
+			<table width="32%" style="margin-top: 30px">
+				<tr align="center">
+					<td style="color: darkviolet " >第$!{nowPageNum}页/共$!{maxPage}页</td>
+					<td><a href="mood.html?nowPageNum=1" style="color: dodgerblue">首页</a></td>
+					<td>
+						#if($!{nowPageNum}>1)
+						<a href="mood.html?nowPageNum=$!{nowPageNumLast}" style="color: dodgerblue">上一页</a>
+						#else
+						上一页
+						#end
+					</td>
+					<td><c:choose>
+						#if($!{nowPageNum}<$!{maxPage})
+						<a href="mood.html?nowPageNum=$!{nowPageNumAdd}" style="color: dodgerblue">下一页</a>
+						#else
+						下一页
+						#end
+					</td>
+					<td><a href="mood.html?nowPageNum=$!{maxPage}" style="color: dodgerblue">尾页</a></td>
+					<td><input style="width: 30px" type="text" name="" id="nowPageNum"> <input type="button" onclick="skip()" style="color: deeppink " value=" 跳  转 " ></td>
+				</tr>
+			</table>
+		</center>
+	</div>
+	<footer>
+		<p>CopyRight© 2016版权所有  ICP备案号：闽ICP备号</a></p>
+		<p>Design by LiangZi QQ:419400980</a></p>
+	</footer>
+</body>
+<script src="js/myJs.js"></script>
+<script src="js/silder.js"></script>
+</html>

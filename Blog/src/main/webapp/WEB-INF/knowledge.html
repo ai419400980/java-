@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>学无止境----一个站在web后端设计之路的男青年个人博客网站</title>
+	<meta name="keywords" content="个人博客,梁钟霖个人博客,个人博客模板,梁钟霖,模板分享,个人博客模板,html模板" />
+	<meta name="description" content="梁钟霖个人博客网站----一个站在web后端设计之路的男青年个人博客网站，提供html模板和博客模板免费资源下载的个人原创网站。" />
+	<link href="css/base.css" rel="stylesheet">
+	<link href="css/learn.css" rel="stylesheet">
+	<link href="css/mystyle.css" rel="stylesheet">
+	<link rel="icon" href="images/money.ico" type="image/x-icon"/> 
+</head>
+<body>
+	<header>
+		<div id="logo"><a href="/"></a></div>
+		<nav class="topnav" id="topnav">
+			<a href="index.html"><span>首页</span><span class="en">Protal</span></a>
+			<a href="about.html"><span>关于我</span><span class="en">About</span></a>
+			<a href="slowlife.html"><span>慢生活</span><span class="en">Life</span></a>
+			<a href="knowledge.html"><span>学无止境</span><span class="en">Learn</span></a>
+			<a href="success.html"><span>模板分享</span><span class="en">Success</span></a>
+			<a href="mood.html"><span>碎言碎语</span><span class="en">Moods</span></a>
+			<a href="message.html"><span>留言版</span><span class="en">Message</span></a>
+		</nav>
+	</header>
+	<article class="blogs">
+		<h1 class="t_nav"><span>我们长路漫漫，只因学无止境。 </span><a href="/" class="n1">网站首页</a><a href="/" class="n2">学无止境</a></h1>
+		<div class="newblog left">
+			#foreach($indexlist in $listPage)
+				<h2><a href="getAticle.html?id=$!{indexlist.atId}">$!indexlist.atTitle</a></h2>
+				<p class="dateview">
+					<span>$!indexlist.atCreatTimeChange</span>
+					<span>作者：$!indexlist.acAuthor</span>
+					<span>阅读:[<a style="text-decoration:none;">$!indexlist.atReadCount</a>]</span>
+					<span>点赞:[<a style="text-decoration:none;">$!indexlist.atPraiseCount</a>]</span>
+					<span>分类:[<a style="text-decoration:none;">$!indexlist.atTypeId</a>]</span>
+				</p>
+				<figure><img src="$!{indexlist.atImageUrl}"></figure>
+				<ul class="nlist">
+					<p>$!indexlist.atIntroduction</p>
+					<a title="/" href="getAticle.html?id=$!{indexlist.atId}"  class="readmore">阅读全文>></a>
+				</ul>
+				<div class="line" ></div>
+			#end
+		    <center>
+				<input type="hidden" value="$!{maxPage}" id="maxPage">
+				<input type="hidden" value="knowledge.html?" id="skipurl">
+				<table width="60%" style="margin-top: 20px">
+					<tr align="center">
+						<td style="color: darkviolet " >第$!{nowPageNum}页/共$!{maxPage}页</td>
+						<td><a href="knowledge.html?nowPageNum=1" style="color: dodgerblue">首页</a></td>
+						<td>
+							#if($!{nowPageNum}>1)
+							<a href="knowledge.html?nowPageNum=$!{nowPageNumLast}" style="color: dodgerblue">上一页</a>
+							#else
+							上一页
+							#end
+						</td>
+						<td><c:choose>
+							#if($!{nowPageNum}<$!{maxPage})
+							<a href="knowledge.html?nowPageNum=$!{nowPageNumAdd}" style="color: dodgerblue">下一页</a>
+							#else
+							下一页
+							#end
+						</td>
+						<td><a href="knowledge.html?nowPageNum=$!{maxPage}" style="color: dodgerblue">尾页</a></td>
+						<td><input style="width: 30px" type="text" name="" id="nowPageNum"> <input type="button" onclick="skip()" style="color: deeppink " value=" 跳  转 " ></td>
+					</tr>
+				</table>
+			</center>
+		</div>
+	<aside class="right">
+		<div id="search_box" >
+			<input class="swap_value" id="s" type="text" placeholder="Search. . ." /> 
+			<input alt="Search" height="24" id="go" onclick="searching()" src="images/btn_search_box.gif"  title="Search" type="image" width="27" />
+		</div>	
+		<div class="rnav">
+			<h2>栏目导航</h2>
+		    <ul>
+		        <li><a href="searchWorld.html?nowPageNum=1&searchText=打赏" >打赏</a></li>
+		        <li><a href="searchWorld.html?nowPageNum=1&searchText=模板" >html模板</a></li>
+		        <li><a href="searchWorld.html?nowPageNum=1&searchText=Nginx" >Nginx</a></li>
+		        <li><a href="searchWorld.html?nowPageNum=1&searchText=Tomcat" >Tomcat</a></li>
+				<li><a href="searchWorld.html?nowPageNum=1&searchText=SVN" >SVN</a></li>
+				<li><a href="searchWorld.html?nowPageNum=1&searchText=KDJ" >JDK</a></li>
+			</ul>      
+		</div>
+		<div class="news">
+			<h3>
+				<p>最新<span>文章</span></p>
+			</h3>
+			<ul class="rank">
+				#foreach($indexlist in $listByNew)
+					<li><a href="getAticle.html?id=$!{indexlist.atId}"  >$!indexlist.atTitle</a></li>
+				#end
+			</ul>
+			<h3 class="ph"><p>点击<span>排行</span></p></h3>
+			<ul class="paih">
+				#foreach($indexlist in $listByCount)
+					<li><a href="getAticle.html?id=$!{indexlist.atId}">$!indexlist.atTitle</a></li>
+				#end
+			</ul>
+			<h3 class="links">
+				<p>友情<span>链接</span></p>
+			</h3>
+			<ul class="website">
+				<li><a href="https://www.liangzl.com/">梁钟霖个人博客</a></li>
+			</ul> 
+		</div> 
+	</aside>
+	</article>
+	<footer>
+		<p>CopyRight© 2016版权所有  ICP备案号：闽ICP备号</a></p>
+		<p>Design by LiangZi QQ:419400980</a></p>
+	</footer>
+	<div id="loadPage" style="display:none;position:absolute; left:-1px; top:1px; width:100%; height:100%;position: fixed;moz-opacity: 0.3;filter:Alpha(opacity=50); opacity: 0.3; background-color:#555; z-index:1000;">
+	 	<img src="images/wait.gif" style="position: fixed;left: 48%;top:35%;"></img>
+ 	</div>
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<script src="js/myJs.js"></script>
+	<script src="js/silder.js"></script>
+</body>
+</html>

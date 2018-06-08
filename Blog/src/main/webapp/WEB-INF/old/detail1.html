@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>LiangZi's Blog</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link href="css/base.css" rel="stylesheet">
+	<link href="css/learn.css" rel="stylesheet">
+	<link href="css/mystyle.css" rel="stylesheet">
+</head>	
+<body>
+	<header>
+		<div id="logo"><a href="/"></a></div>
+		<nav class="topnav" id="topnav">
+			<a href="index.html"><span>首页</span><span class="en">Protal</span></a>
+			<a href="about.html"><span>关于我</span><span class="en">About</span></a>
+			<a href="slowlife.html"><span>慢生活</span><span class="en">Life</span></a>
+			<a href="knowledge.html"><span>学无止境</span><span class="en">Learn</span></a>
+			<a href="success.html"><span>一骑绝尘</span><span class="en">Success</span></a>
+			<a href="mood.html"><span>碎言碎语</span><span class="en">Moods</span></a>
+			<a href="message.html"><span>留言版</span><span class="en">Message</span></a>
+		</nav>
+	</header>
+	<article class="blogs">
+		<h1 class="t_nav"><span>我们长路漫漫，只因学无止境。 </span><a href="/" class="n1">网站首页</a><a href="/" class="n2">文章内容</a></h1>
+		<div class="newblog left">
+			<center>
+				<h2 >$!{aticle.atTitle}</h2>
+			    <p class="dateview">
+					<span>$!{aticle.atCreatTimeChange}</span>
+					<span>作者：$!{aticle.acAuthor}</span>
+					<span>阅读:[<a style="text-decoration:none;">$!{aticle.atReadCount}</a>]</span>
+					<span>点赞:[<a style="text-decoration:none;">$!{aticle.atPraiseCount}</a>]</span>
+					<span>分类：[<a style="text-decoration:none;">$!{aticle.atTypeId}</a>]</span>
+				</p>
+			</center>
+		    <ul class="nlist" style="width: 760px">
+		    	$!{aticle.atContent}
+		    </ul>
+		    <div class="line"></div>
+		    <ul class="dianzan">
+				<li><a href="http://www.xujun.org" style="">点 赞</a><span>[<a style="text-decoration:none;">$!{aticle.atPraiseCount}</a>]</span></li>
+			</ul>
+		</div>
+	<aside class="right">
+		<div id="search_box" >
+				<form action="#" id="search_form" method="post">
+				<input class="swap_value" id="s" type="text" placeholder="Search. . ." /> 
+				<input alt="Search" height="24" id="go" src="images/btn_search_box.gif" title="Search" type="image" width="27" />
+				</form>
+		</div>	
+		<div class="rnav">
+			<h2>栏目导航</h2>
+		    <ul>
+		        <li><a href="/download/" target="_blank">CSS3|Html5</a></li>
+		        <li><a href="/newsfree/" target="_blank">推荐工具</a></li>
+		        <li><a href="/newsfree/" target="_blank">心得笔记</a></li>
+		        <li><a href="/newsfree/" target="_blank">IP查询</a></li>
+				<li><a href="/newsfree/" target="_blank">JS经典实例</a></li>
+				<li><a href="/newsfree/" target="_blank">网站建设</a></li>
+			</ul>      
+		</div>
+		<div class="news">
+			<h3><p>最新<span>文章</span></p></h3>
+			<ul class="rank">
+				#foreach($indexlist in $listByNew)
+					<li><a href="getAticle.html?id=$!{indexlist.atId}"  >$!indexlist.atTitle</a></li>
+				#end
+			</ul>
+	    	<h3 class="ph"><p>点击<span>排行</span></p></h3>
+			<ul class="paih">
+				#foreach($indexlist in $listByCount)
+					<li><a href="getAticle.html?id=$!{indexlist.atId}">$!indexlist.atTitle</a></li>
+				#end
+			</ul>
+		    <h3 class="links">
+				<p>友情<span>链接</span></p>
+			</h3>
+			<ul class="website">
+				<li><a href="http://www.xujun.org" style="">许军	个人博客</a></li>
+			</ul>
+	    </div>
+	    
+	     <!-- Baidu Button BEGIN -->
+	    <script type="text/javascript" id="bdshare_js" data="type=tools&amp;uid=6574585" ></script> 
+	    <script type="text/javascript" id="bdshell_js"></script> 
+	    <script type="text/javascript">
+			document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000)
+		</script> 
+	    <!-- Baidu Button END -->   
+	</aside>
+	</article>
+	<footer>
+		<p>CopyRight© 2016版权所有  ICP备案号：闽ICP备16034451号</a></p>
+		<p>Design by LiangZi QQ:419400980</a></p>
+	</footer>
+	<script src="js/silder.js"></script>
+</body>
+</html>

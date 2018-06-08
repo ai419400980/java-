@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangzi.blog.dao.VisitorsMapper" >
+  <resultMap id="BaseResultMap" type="com.liangzi.blog.model.base.Visitors" >
+    <id column="vi_id" property="viId" jdbcType="BIGINT" />
+    <result column="vi_area" property="viArea" jdbcType="VARCHAR" />
+    <result column="vi_ip" property="viIp" jdbcType="VARCHAR" />
+    <result column="vi_memo" property="viMemo" jdbcType="VARCHAR" />
+    <result column="vi_visit_time" property="viVisitTime" jdbcType="VARCHAR" />
+    <result column="vi_creat_time_change" property="viCreatTimeChange" jdbcType="VARCHAR" />
+    <result column="vi_creat_time" property="viCreatTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    vi_id, vi_area, vi_ip, vi_memo, vi_visit_time, vi_creat_time_change, vi_creat_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.liangzi.blog.model.base.VisitorsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from visitors
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from visitors
+    where vi_id = #{viId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from visitors
+    where vi_id = #{viId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liangzi.blog.model.base.VisitorsExample" >
+    delete from visitors
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liangzi.blog.model.base.Visitors" >
+    insert into visitors (vi_id, vi_area, vi_ip, 
+      vi_memo, vi_visit_time, vi_creat_time_change, 
+      vi_creat_time)
+    values (#{viId,jdbcType=BIGINT}, #{viArea,jdbcType=VARCHAR}, #{viIp,jdbcType=VARCHAR}, 
+      #{viMemo,jdbcType=VARCHAR}, #{viVisitTime,jdbcType=VARCHAR}, #{viCreatTimeChange,jdbcType=VARCHAR}, 
+      #{viCreatTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangzi.blog.model.base.Visitors" >
+    insert into visitors
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="viId != null" >
+        vi_id,
+      </if>
+      <if test="viArea != null" >
+        vi_area,
+      </if>
+      <if test="viIp != null" >
+        vi_ip,
+      </if>
+      <if test="viMemo != null" >
+        vi_memo,
+      </if>
+      <if test="viVisitTime != null" >
+        vi_visit_time,
+      </if>
+      <if test="viCreatTimeChange != null" >
+        vi_creat_time_change,
+      </if>
+      <if test="viCreatTime != null" >
+        vi_creat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="viId != null" >
+        #{viId,jdbcType=BIGINT},
+      </if>
+      <if test="viArea != null" >
+        #{viArea,jdbcType=VARCHAR},
+      </if>
+      <if test="viIp != null" >
+        #{viIp,jdbcType=VARCHAR},
+      </if>
+      <if test="viMemo != null" >
+        #{viMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="viVisitTime != null" >
+        #{viVisitTime,jdbcType=VARCHAR},
+      </if>
+      <if test="viCreatTimeChange != null" >
+        #{viCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="viCreatTime != null" >
+        #{viCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liangzi.blog.model.base.VisitorsExample" resultType="java.lang.Integer" >
+    select count(*) from visitors
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update visitors
+    <set >
+      <if test="record.viId != null" >
+        vi_id = #{record.viId,jdbcType=BIGINT},
+      </if>
+      <if test="record.viArea != null" >
+        vi_area = #{record.viArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viIp != null" >
+        vi_ip = #{record.viIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viMemo != null" >
+        vi_memo = #{record.viMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viVisitTime != null" >
+        vi_visit_time = #{record.viVisitTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viCreatTimeChange != null" >
+        vi_creat_time_change = #{record.viCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viCreatTime != null" >
+        vi_creat_time = #{record.viCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update visitors
+    set vi_id = #{record.viId,jdbcType=BIGINT},
+      vi_area = #{record.viArea,jdbcType=VARCHAR},
+      vi_ip = #{record.viIp,jdbcType=VARCHAR},
+      vi_memo = #{record.viMemo,jdbcType=VARCHAR},
+      vi_visit_time = #{record.viVisitTime,jdbcType=VARCHAR},
+      vi_creat_time_change = #{record.viCreatTimeChange,jdbcType=VARCHAR},
+      vi_creat_time = #{record.viCreatTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangzi.blog.model.base.Visitors" >
+    update visitors
+    <set >
+      <if test="viArea != null" >
+        vi_area = #{viArea,jdbcType=VARCHAR},
+      </if>
+      <if test="viIp != null" >
+        vi_ip = #{viIp,jdbcType=VARCHAR},
+      </if>
+      <if test="viMemo != null" >
+        vi_memo = #{viMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="viVisitTime != null" >
+        vi_visit_time = #{viVisitTime,jdbcType=VARCHAR},
+      </if>
+      <if test="viCreatTimeChange != null" >
+        vi_creat_time_change = #{viCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="viCreatTime != null" >
+        vi_creat_time = #{viCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where vi_id = #{viId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangzi.blog.model.base.Visitors" >
+    update visitors
+    set vi_area = #{viArea,jdbcType=VARCHAR},
+      vi_ip = #{viIp,jdbcType=VARCHAR},
+      vi_memo = #{viMemo,jdbcType=VARCHAR},
+      vi_visit_time = #{viVisitTime,jdbcType=VARCHAR},
+      vi_creat_time_change = #{viCreatTimeChange,jdbcType=VARCHAR},
+      vi_creat_time = #{viCreatTime,jdbcType=TIMESTAMP}
+    where vi_id = #{viId,jdbcType=BIGINT}
+  </update>
+  <select id="getVisitCount" parameterType="String" resultType="int">
+	SELECT
+		count(*)
+	FROM
+		visitors
+	WHERE
+		vi_visit_time = #{value}
+  </select>
+  <select id="getVisitCountForWeb" parameterType="String" resultType="int">
+	SELECT
+		count(*)
+	FROM
+		visitors
+	WHERE
+		vi_visit_time = #{value}
+	and vi_memo = 'PC端访问' 	
+  </select>
+  <select id="getVisitCountForPhone" parameterType="String" resultType="int">
+	SELECT
+		count(*)
+	FROM
+		visitors
+	WHERE
+		vi_visit_time = #{value}
+	and vi_memo = '移动端访问' 	
+  </select>
+  <select id="getForPageList" parameterType="com.liangzi.blog.model.extend.PageModel" resultType="com.liangzi.blog.model.base.Visitors">
+		SELECT
+			vi_id viId,
+			vi_area viArea,
+			vi_ip viIp,
+			vi_memo viMemo,
+			vi_creat_time viCreatTime
+		FROM
+			visitors
+		ORDER BY
+			vi_id DESC
+		LIMIT #{maxCount},#{pageSize}
+  </select>
+  
+  <select id="getVisitCountForAll" parameterType="String" resultType="int">
+	SELECT
+		count(*)
+	FROM
+		visitors
+  </select>
+  
+  <select id="getVisitCountForSearch" parameterType="com.liangzi.blog.model.base.Visitors" resultType="int">
+	SELECT
+		count(*)
+	FROM
+		visitors
+	<where>
+		<if test="viArea != null and viArea != '' ">
+			vi_area like '%${viArea}%'
+		</if>
+		<if test="viIp != null and viIp !=''">
+			and vi_ip like '%${viIp}%'
+		</if>
+		<if test="viMemo != null and viMemo != ''">
+		 	and vi_memo like '%${viMemo}%'
+		</if>
+	</where>
+  </select>
+  
+  <select id="getForPageListForSearch" parameterType="com.liangzi.blog.model.extend.PageModelForVisitor" resultType="com.liangzi.blog.model.base.Visitors">
+	SELECT
+		vi_id viId,
+		vi_area viArea,
+		vi_ip viIp,
+		vi_memo viMemo,
+		vi_creat_time viCreatTime
+	FROM
+		visitors
+	<where>
+		<if test="viArea != null and viArea != '' ">
+			vi_area like '%${viArea}%'
+		</if>
+		<if test="viIp != null and viIp !=''">
+			and vi_ip like '%${viIp}%'
+		</if>
+		<if test="viMemo != null and viMemo != ''">
+		 	and vi_memo like '%${viMemo}%'
+		</if>
+	</where>
+	ORDER BY
+			vi_id DESC
+	LIMIT #{maxCount},#{pageSize}	
+  </select>
+</mapper>

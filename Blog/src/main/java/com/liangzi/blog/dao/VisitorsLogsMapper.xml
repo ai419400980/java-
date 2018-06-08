@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangzi.blog.dao.VisitorsLogsMapper" >
+  <resultMap id="BaseResultMap" type="com.liangzi.blog.model.base.VisitorsLogs" >
+    <id column="vl_id" property="vlId" jdbcType="BIGINT" />
+    <result column="vl_area" property="vlArea" jdbcType="VARCHAR" />
+    <result column="vl_ip" property="vlIp" jdbcType="VARCHAR" />
+    <result column="vl_target" property="vlTarget" jdbcType="VARCHAR" />
+    <result column="vl_operation_content" property="vlOperationContent" jdbcType="VARCHAR" />
+    <result column="vl_memo" property="vlMemo" jdbcType="VARCHAR" />
+    <result column="vl_visit_time" property="vlVisitTime" jdbcType="VARCHAR" />
+    <result column="vl_creat_time_change" property="vlCreatTimeChange" jdbcType="VARCHAR" />
+    <result column="vl_creat_time" property="vlCreatTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    vl_id, vl_area, vl_ip, vl_target, vl_operation_content, vl_memo, vl_visit_time, vl_creat_time_change, 
+    vl_creat_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.liangzi.blog.model.base.VisitorsLogsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from visitors_logs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from visitors_logs
+    where vl_id = #{vlId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from visitors_logs
+    where vl_id = #{vlId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liangzi.blog.model.base.VisitorsLogsExample" >
+    delete from visitors_logs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liangzi.blog.model.base.VisitorsLogs" >
+    insert into visitors_logs (vl_id, vl_area, vl_ip, 
+      vl_target, vl_operation_content, vl_memo, 
+      vl_visit_time, vl_creat_time_change, vl_creat_time
+      )
+    values (#{vlId,jdbcType=BIGINT}, #{vlArea,jdbcType=VARCHAR}, #{vlIp,jdbcType=VARCHAR}, 
+      #{vlTarget,jdbcType=VARCHAR}, #{vlOperationContent,jdbcType=VARCHAR}, #{vlMemo,jdbcType=VARCHAR}, 
+      #{vlVisitTime,jdbcType=VARCHAR}, #{vlCreatTimeChange,jdbcType=VARCHAR}, #{vlCreatTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangzi.blog.model.base.VisitorsLogs" >
+    insert into visitors_logs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="vlId != null" >
+        vl_id,
+      </if>
+      <if test="vlArea != null" >
+        vl_area,
+      </if>
+      <if test="vlIp != null" >
+        vl_ip,
+      </if>
+      <if test="vlTarget != null" >
+        vl_target,
+      </if>
+      <if test="vlOperationContent != null" >
+        vl_operation_content,
+      </if>
+      <if test="vlMemo != null" >
+        vl_memo,
+      </if>
+      <if test="vlVisitTime != null" >
+        vl_visit_time,
+      </if>
+      <if test="vlCreatTimeChange != null" >
+        vl_creat_time_change,
+      </if>
+      <if test="vlCreatTime != null" >
+        vl_creat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="vlId != null" >
+        #{vlId,jdbcType=BIGINT},
+      </if>
+      <if test="vlArea != null" >
+        #{vlArea,jdbcType=VARCHAR},
+      </if>
+      <if test="vlIp != null" >
+        #{vlIp,jdbcType=VARCHAR},
+      </if>
+      <if test="vlTarget != null" >
+        #{vlTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="vlOperationContent != null" >
+        #{vlOperationContent,jdbcType=VARCHAR},
+      </if>
+      <if test="vlMemo != null" >
+        #{vlMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="vlVisitTime != null" >
+        #{vlVisitTime,jdbcType=VARCHAR},
+      </if>
+      <if test="vlCreatTimeChange != null" >
+        #{vlCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="vlCreatTime != null" >
+        #{vlCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liangzi.blog.model.base.VisitorsLogsExample" resultType="java.lang.Integer" >
+    select count(*) from visitors_logs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update visitors_logs
+    <set >
+      <if test="record.vlId != null" >
+        vl_id = #{record.vlId,jdbcType=BIGINT},
+      </if>
+      <if test="record.vlArea != null" >
+        vl_area = #{record.vlArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vlIp != null" >
+        vl_ip = #{record.vlIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vlTarget != null" >
+        vl_target = #{record.vlTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vlOperationContent != null" >
+        vl_operation_content = #{record.vlOperationContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vlMemo != null" >
+        vl_memo = #{record.vlMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vlVisitTime != null" >
+        vl_visit_time = #{record.vlVisitTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vlCreatTimeChange != null" >
+        vl_creat_time_change = #{record.vlCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.vlCreatTime != null" >
+        vl_creat_time = #{record.vlCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update visitors_logs
+    set vl_id = #{record.vlId,jdbcType=BIGINT},
+      vl_area = #{record.vlArea,jdbcType=VARCHAR},
+      vl_ip = #{record.vlIp,jdbcType=VARCHAR},
+      vl_target = #{record.vlTarget,jdbcType=VARCHAR},
+      vl_operation_content = #{record.vlOperationContent,jdbcType=VARCHAR},
+      vl_memo = #{record.vlMemo,jdbcType=VARCHAR},
+      vl_visit_time = #{record.vlVisitTime,jdbcType=VARCHAR},
+      vl_creat_time_change = #{record.vlCreatTimeChange,jdbcType=VARCHAR},
+      vl_creat_time = #{record.vlCreatTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangzi.blog.model.base.VisitorsLogs" >
+    update visitors_logs
+    <set >
+      <if test="vlArea != null" >
+        vl_area = #{vlArea,jdbcType=VARCHAR},
+      </if>
+      <if test="vlIp != null" >
+        vl_ip = #{vlIp,jdbcType=VARCHAR},
+      </if>
+      <if test="vlTarget != null" >
+        vl_target = #{vlTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="vlOperationContent != null" >
+        vl_operation_content = #{vlOperationContent,jdbcType=VARCHAR},
+      </if>
+      <if test="vlMemo != null" >
+        vl_memo = #{vlMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="vlVisitTime != null" >
+        vl_visit_time = #{vlVisitTime,jdbcType=VARCHAR},
+      </if>
+      <if test="vlCreatTimeChange != null" >
+        vl_creat_time_change = #{vlCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="vlCreatTime != null" >
+        vl_creat_time = #{vlCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where vl_id = #{vlId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangzi.blog.model.base.VisitorsLogs" >
+    update visitors_logs
+    set vl_area = #{vlArea,jdbcType=VARCHAR},
+      vl_ip = #{vlIp,jdbcType=VARCHAR},
+      vl_target = #{vlTarget,jdbcType=VARCHAR},
+      vl_operation_content = #{vlOperationContent,jdbcType=VARCHAR},
+      vl_memo = #{vlMemo,jdbcType=VARCHAR},
+      vl_visit_time = #{vlVisitTime,jdbcType=VARCHAR},
+      vl_creat_time_change = #{vlCreatTimeChange,jdbcType=VARCHAR},
+      vl_creat_time = #{vlCreatTime,jdbcType=TIMESTAMP}
+    where vl_id = #{vlId,jdbcType=BIGINT}
+  </update>
+  <select id="getVisitForOperation" parameterType="String" resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		visitors_logs
+	WHERE
+	vl_visit_time = #{value}
+  </select>
+   <select id="getSearchCount" parameterType="String" resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		visitors_logs
+	WHERE
+		vl_visit_time = #{value}
+	AND vl_operation_content = '搜索文章'
+  </select>
+   <select id="getMessageCount" parameterType="String" resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		visitors_logs
+	WHERE
+		vl_visit_time = #{value}
+	AND vl_operation_content = '留言'
+  </select>
+   <select id="getPraiseCount" parameterType="String" resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		visitors_logs
+	WHERE
+		vl_visit_time = #{value}
+	AND vl_operation_content = '点赞文章'
+  </select>
+   <select id="getArticleMessageCount" parameterType="String" resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		visitors_logs
+	WHERE
+		vl_visit_time = #{value}
+	AND vl_operation_content = '评论文章'
+  </select>
+  <select id="getVisitLogsCountForAll" resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		visitors_logs
+  </select>
+  
+  <select id="getForPageList" parameterType="com.liangzi.blog.model.extend.PageModel" resultType="com.liangzi.blog.model.base.VisitorsLogs">
+  	SELECT
+		vl_id vlId,
+		vl_area vlArea,
+		vl_ip vlIp,
+		vl_target vlTarget,
+		vl_operation_content vlOperationContent,
+		vl_memo vlMemo ,
+		vl_creat_time vlCreatTime
+	FROM
+		visitors_logs
+	ORDER BY
+		vl_id DESC
+	LIMIT #{maxCount},#{pageSize}
+  </select>
+  
+  <select id="getVisitLogsCountForSearch" parameterType="com.liangzi.blog.model.base.VisitorsLogs" resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		visitors_logs
+	<where>
+		<if test="vlArea != null and vlArea != '' ">
+			vl_area like '%${vlArea}%'
+		</if>
+		<if test="vlIp != null and vlIp !=''">
+			and vl_ip like '%${vlIp}%'
+		</if>
+		<if test="vlTarget != null and vlTarget != ''">
+		 	and vl_target like '%${vlTarget}%'
+		</if>
+		<if test="vlOperationContent != null and vlOperationContent != ''">
+		 	and vl_operation_content like '%${vlOperationContent}%'
+		</if>
+		<if test="vlMemo != null and vlMemo != ''">
+		 	and vl_memo like '%${vlMemo}%'
+		</if>
+	</where>
+  </select>
+  <select id="getForVisitorsLogsPageListForSearch" parameterType="com.liangzi.blog.model.extend.PageModelForVisitorLogs" resultType="com.liangzi.blog.model.base.VisitorsLogs">
+  		SELECT
+			vl_id vlId,
+			vl_area vlArea,
+			vl_ip vlIp,
+			vl_target vlTarget,
+			vl_operation_content vlOperationContent,
+			vl_memo vlMemo ,
+			vl_creat_time vlCreatTime
+		FROM
+			visitors_logs
+	<where>
+		<if test="vlArea != null and vlArea != '' ">
+			vl_area like '%${vlArea}%'
+		</if>
+		<if test="vlIp != null and vlIp !=''">
+			and vl_ip like '%${vlIp}%'
+		</if>
+		<if test="vlTarget != null and vlTarget != ''">
+		 	and vl_target like '%${vlTarget}%'
+		</if>
+		<if test="vlOperationContent != null and vlOperationContent != ''">
+		 	and vl_operation_content like '%${vlOperationContent}%'
+		</if>
+		<if test="vlMemo != null and vlMemo != ''">
+		 	and vl_memo like '%${vlMemo}%'
+		</if>
+	</where>
+	ORDER BY
+			vl_id DESC
+	LIMIT #{maxCount},#{pageSize}	
+  </select>
+</mapper>

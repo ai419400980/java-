@@ -1,0 +1,48 @@
+#search_box { 
+margin-top:5px;	
+width: 201px; 
+height: 31px; 
+background: url(../phone_images/bg_search_box.gif); 
+margin-left:auto;
+margin-right:auto;
+} 
+#search_box #s { 
+margin-left:auto;
+margin-right:auto;
+padding: 0; 
+border: 0; 
+width: 150px; 
+background: none; 
+height: 25px
+} 
+#search_box #go { 
+float: right; 
+margin: 3px 4px 0 0; 
+}
+
+.website { margin: 10px 0; background: #F3F3F3; border-radius: 50%; text-align: center; }
+.website li { line-height: 26px; text-shadow: #fff 1px 1px 1px; height: 26px; }
+.dianzan { margin: 10px 0; background: #e1e1e3; border-radius: 50%; text-align: center; width: 200px;margin-left:auto;margin-right:auto;}
+.dianzan li { line-height: 26px; text-shadow: #fff 1px 1px 1px; height: 26px; }
+
+.ylcon{
+margin:0;padding:0;
+-webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+-webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+-webkit-tap-highlight-color: rgba(210,210,210,0.35); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+-webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+}
+.ylcon{font-family:"微软雅黑";font-size:12px;}
+ul,li{list-style:none;}
+.ylcon{width:100%;min-width:320px;}
+.tit{height:26px;line-height:26px;padding:0px 15px;position:relative;font-size:15px;color:#aaa;border-bottom:1px solid rgba(0, 0, 0, 0.15);}
+ 
+.story{border-bottom:1px dashed #cecece;padding:0 15px 3px;position:relative;}
+.story_t{font-size:1.2em;color:rgba(0,0,0,1);padding-top:5px;padding-bottom:2px;}
+.story_m{color:rgba(110,110,110,1);line-height:21px;word-break:break-all;word-wrap:break-word;overflow:hidden;font-size:1.2em;padding:2px 0;}
+.story_time{color:rgba(154,154,154,1);padding:2px 0;}
+.story_hf{background:rgb(245,245,245);font-size:1.2em;border:1px solid rgba(204,204,204,0.2);border-radius:2px;color:rgba(110,110,110,1);padding:4px;margin-bottom:5px;}
+.opbtn{position:absolute;top: 0;right: 0;}
+
+.infoone{background: #fff; overflow:hidden; clear:both;  margin: 10px 0 0 0; display: inline-block; color: #838383; background: #f6f6f6 ;width:100%}
+

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangzi.mgr.blog.dao.MgrAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.liangzi.mgr.blog.model.base.MgrAccount" >
+    <id column="mac_id" property="macId" jdbcType="BIGINT" />
+    <result column="mac_tittle" property="macTittle" jdbcType="VARCHAR" />
+    <result column="mac_password" property="macPassword" jdbcType="VARCHAR" />
+    <result column="mac_nick" property="macNick" jdbcType="VARCHAR" />
+    <result column="mac_memo" property="macMemo" jdbcType="VARCHAR" />
+    <result column="mac_creat_time_change" property="macCreatTimeChange" jdbcType="VARCHAR" />
+    <result column="mac_modify_time" property="macModifyTime" jdbcType="TIMESTAMP" />
+    <result column="mac_creat_time" property="macCreatTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mac_id, mac_tittle, mac_password, mac_nick, mac_memo, mac_creat_time_change, mac_modify_time, 
+    mac_creat_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.liangzi.mgr.blog.model.base.MgrAccountExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mgr_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from mgr_account
+    where mac_id = #{macId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from mgr_account
+    where mac_id = #{macId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liangzi.mgr.blog.model.base.MgrAccountExample" >
+    delete from mgr_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liangzi.mgr.blog.model.base.MgrAccount" >
+    insert into mgr_account (mac_id, mac_tittle, mac_password, 
+      mac_nick, mac_memo, mac_creat_time_change, 
+      mac_modify_time, mac_creat_time)
+    values (#{macId,jdbcType=BIGINT}, #{macTittle,jdbcType=VARCHAR}, #{macPassword,jdbcType=VARCHAR}, 
+      #{macNick,jdbcType=VARCHAR}, #{macMemo,jdbcType=VARCHAR}, #{macCreatTimeChange,jdbcType=VARCHAR}, 
+      #{macModifyTime,jdbcType=TIMESTAMP}, #{macCreatTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangzi.mgr.blog.model.base.MgrAccount" >
+    insert into mgr_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="macId != null" >
+        mac_id,
+      </if>
+      <if test="macTittle != null" >
+        mac_tittle,
+      </if>
+      <if test="macPassword != null" >
+        mac_password,
+      </if>
+      <if test="macNick != null" >
+        mac_nick,
+      </if>
+      <if test="macMemo != null" >
+        mac_memo,
+      </if>
+      <if test="macCreatTimeChange != null" >
+        mac_creat_time_change,
+      </if>
+      <if test="macModifyTime != null" >
+        mac_modify_time,
+      </if>
+      <if test="macCreatTime != null" >
+        mac_creat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="macId != null" >
+        #{macId,jdbcType=BIGINT},
+      </if>
+      <if test="macTittle != null" >
+        #{macTittle,jdbcType=VARCHAR},
+      </if>
+      <if test="macPassword != null" >
+        #{macPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="macNick != null" >
+        #{macNick,jdbcType=VARCHAR},
+      </if>
+      <if test="macMemo != null" >
+        #{macMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="macCreatTimeChange != null" >
+        #{macCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="macModifyTime != null" >
+        #{macModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="macCreatTime != null" >
+        #{macCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liangzi.mgr.blog.model.base.MgrAccountExample" resultType="java.lang.Integer" >
+    select count(*) from mgr_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mgr_account
+    <set >
+      <if test="record.macId != null" >
+        mac_id = #{record.macId,jdbcType=BIGINT},
+      </if>
+      <if test="record.macTittle != null" >
+        mac_tittle = #{record.macTittle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.macPassword != null" >
+        mac_password = #{record.macPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.macNick != null" >
+        mac_nick = #{record.macNick,jdbcType=VARCHAR},
+      </if>
+      <if test="record.macMemo != null" >
+        mac_memo = #{record.macMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.macCreatTimeChange != null" >
+        mac_creat_time_change = #{record.macCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.macModifyTime != null" >
+        mac_modify_time = #{record.macModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.macCreatTime != null" >
+        mac_creat_time = #{record.macCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mgr_account
+    set mac_id = #{record.macId,jdbcType=BIGINT},
+      mac_tittle = #{record.macTittle,jdbcType=VARCHAR},
+      mac_password = #{record.macPassword,jdbcType=VARCHAR},
+      mac_nick = #{record.macNick,jdbcType=VARCHAR},
+      mac_memo = #{record.macMemo,jdbcType=VARCHAR},
+      mac_creat_time_change = #{record.macCreatTimeChange,jdbcType=VARCHAR},
+      mac_modify_time = #{record.macModifyTime,jdbcType=TIMESTAMP},
+      mac_creat_time = #{record.macCreatTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangzi.mgr.blog.model.base.MgrAccount" >
+    update mgr_account
+    <set >
+      <if test="macTittle != null" >
+        mac_tittle = #{macTittle,jdbcType=VARCHAR},
+      </if>
+      <if test="macPassword != null" >
+        mac_password = #{macPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="macNick != null" >
+        mac_nick = #{macNick,jdbcType=VARCHAR},
+      </if>
+      <if test="macMemo != null" >
+        mac_memo = #{macMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="macCreatTimeChange != null" >
+        mac_creat_time_change = #{macCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="macModifyTime != null" >
+        mac_modify_time = #{macModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="macCreatTime != null" >
+        mac_creat_time = #{macCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where mac_id = #{macId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangzi.mgr.blog.model.base.MgrAccount" >
+    update mgr_account
+    set mac_tittle = #{macTittle,jdbcType=VARCHAR},
+      mac_password = #{macPassword,jdbcType=VARCHAR},
+      mac_nick = #{macNick,jdbcType=VARCHAR},
+      mac_memo = #{macMemo,jdbcType=VARCHAR},
+      mac_creat_time_change = #{macCreatTimeChange,jdbcType=VARCHAR},
+      mac_modify_time = #{macModifyTime,jdbcType=TIMESTAMP},
+      mac_creat_time = #{macCreatTime,jdbcType=TIMESTAMP}
+    where mac_id = #{macId,jdbcType=BIGINT}
+  </update>
+</mapper>

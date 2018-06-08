@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>搜索结果----一个站在web后端设计之路的男青年个人博客网站</title>
+<meta name="keywords" content="个人博客,梁钟霖个人博客,个人博客模板,梁钟霖,模板分享,个人博客模板,html模板" />
+<meta name="description" content="梁钟霖个人博客网站----一个站在web后端设计之路的男青年个人博客网站，提供html模板和博客模板免费资源下载的个人原创网站。" />
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport">
+<link href="phone_css/base.css" rel="stylesheet">
+<link href="phone_css/main.css" rel="stylesheet">
+<link href="phone_css/mystyle.css" rel="stylesheet">
+<link href="phone_css/index.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<div class="logo"><a href="/"><img src="phone_images/logo.jpg"></a></div>
+		<div class="menu">
+		<ul>
+			<li><a href="index.html"><span>首页</span></a></li>
+			<li><a href="about.html"><span>关于我</span></a></li>
+			<li><a href="slowlife.html"><span>慢生活</span></a></li>
+			<li><a href="knowledge.html"><span>学无止境</span></a></li>
+			<li><a href="success.html"><span>模板分享</span></a></li>
+			<li><a href="mood.html"><span>碎言碎语</span></a></li>
+			<li><a href="message.html"><span>留言版</span></a></li>
+		</ul>
+		</div>
+	</header>
+<div class="rnav">
+  <ul>
+    <li class="rnav1"><a href="searchWorld.html?nowPageNum=1&searchText=打赏" >打赏</a></li>
+	<li class="rnav4"><a href="searchWorld.html?nowPageNum=1&searchText=模板" >html模板</a></li>
+	<li class="rnav2"><a href="searchWorld.html?nowPageNum=1&searchText=Nginx" >Nginx</a></li>
+	<li class="rnav3"><a href="searchWorld.html?nowPageNum=1&searchText=Myqsl" >Myqsl</a></li>
+  </ul>
+</div>
+	<div id="search_box">
+		<input class="swap_value" id="s" type="text" placeholder=" Search. . ." /> 
+		<input alt="Search" height="24" id="go" onclick="searching()" src="phone_images/btn_search_box.gif"  title="Search" type="image" width="27" />
+	</div>
+	<div class="newblog">
+		#foreach($indexlist in $listBySearch)
+		<p class="dateview"><span><a>$!indexlist.atTitle</a></span></p>
+		<figure><a  href="/" ><img src="$!{indexlist.atImageUrl}" ></a></figure>
+		<ul class="nlist">
+			<p>$!indexlist.atIntroduction</p>
+			<a href="getAticle.html?id=$!{indexlist.atId}" class="readmore">阅读全文>></a>
+			<p class="infoone">
+			<span>阅读:[<a style="color: #099B43" href="/">$!indexlist.atReadCount</a>]</span>
+			<span style="margin-left: 10px">点赞:[<a style="color: #099B43" href="/">$!indexlist.atPraiseCount</a>]</span>
+			<span style="margin-left: 10px">分类:[<a style="color: #099B43" href="/">$!indexlist.atTypeId</a>]</span>
+			<span style="margin-left: 10px">$!indexlist.atCreatTimeChange</span>
+			</p>
+		</ul>
+		<div class="line"></div>
+		#end
+		<center>
+			<input type="hidden" value="$!{maxPage}" id="maxPage">
+			<input type="hidden" value="$!{searchText}" id="searchText">
+			<input type="hidden" value="searchWorld.html?" id="skipurl">
+			<table  style="margin-top: 20px">
+				<tr align="center">
+					<td style="color: darkviolet " >第$!{nowPageNum}页/共$!{maxPage}页</td>
+					<td><a href="searchWorld.html?nowPageNum=1&searchText=$!{searchText}" style="color: dodgerblue">首页</a></td>
+					<td>
+						#if($!{nowPageNum}>1)
+						<a href="searchWorld.html?nowPageNum=$!{nowPageNumLast}&searchText=$!{searchText}" style="color: dodgerblue">上一页</a>
+						#else
+						上一页
+						#end
+					</td>
+					<td><c:choose>
+						#if($!{nowPageNum}<$!{maxPage})
+						<a href="searchWorld.html?nowPageNum=$!{nowPageNumAdd}&searchText=$!{searchText}" style="color: dodgerblue">下一页</a>
+						#else
+						下一页
+						#end
+					</td>
+					<td><a href="searchWorld.html?nowPageNum=$!{maxPage}&searchText=$!{searchText}" style="color: dodgerblue">尾页</a></td>
+					<td><input style="width: 30px" type="text" name="" id="nowPageNum"> <input type="button" onclick="skipSearch()" style="color: deeppink " value=" 跳  转 " ></td>
+				</tr>
+			</table>
+		</center>
+	</div>
+	<div class="news">
+		<h3>
+			<p>最新<span>文章</span></p>
+		</h3>
+		<ul class="rank">
+			#foreach($indexlist in $listByNew)
+			<li><a href="getAticle.html?id=$!{indexlist.atId}" >$!indexlist.atTitle</a></li>
+			#end
+		</ul>
+		<h3 class="ph">
+			<p>点击<span>排行</span></p>
+		</h3>
+		<ul class="paih">
+			#foreach($indexlist in $listByCount)
+			<li><a href="getAticle.html?id=$!{indexlist.atId}" >$!indexlist.atTitle</a></li>
+			#end
+		</ul>
+		<h3 class="links">
+			<p>友情<span>链接</span></p>
+		</h3>
+		<ul class="website">
+			<li><a href="http://www.xujun.org/index.html?domain=liangzl.com">许军	博客</a></li>
+			<li><a href="http://www.CR7.xyz">蓝火	博客</a></li>
+			<li><a href="http://www.heming.cm">何明		博客</a></li>
+		</ul>
+		<div class="guanzhu">您如果觉得喜欢<span>梁钟霖博客</span>打赏微信二维码</div>
+		<a href="/" class="weixin"><img src="phone_images/weixin.jpg"></a>
+	</div>
+	<footer>
+		<p>CopyRight© 2016版权所有  ICP备案号：闽ICP备16034451号</a></p>
+		<p>Design by LiangZi QQ:419400980</a></p>
+	</footer>
+	<div id="loadPage" style="display:none ;position:absolute; left:-1px; top:1px; width:100%; height:100%;position: fixed;moz-opacity: 0.3;filter:Alpha(opacity=50); opacity: 0.3; background-color:#555; z-index:1000;">
+	 	<center>
+	 	<img src="images/wait.gif" style="position: fixed;left: 40%;top:35%;"></img>
+	 	</center>
+ 	</div>
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<script src="js/myJs.js"></script>
+</body>
+</html>

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangzi.mgr.blog.dao.MgrLoginLogsMapper" >
+  <resultMap id="BaseResultMap" type="com.liangzi.mgr.blog.model.base.MgrLoginLogs" >
+    <id column="mll_id" property="mllId" jdbcType="BIGINT" />
+    <result column="mll_ip" property="mllIp" jdbcType="VARCHAR" />
+    <result column="mll_account" property="mllAccount" jdbcType="VARCHAR" />
+    <result column="mll_login_status" property="mllLoginStatus" jdbcType="VARCHAR" />
+    <result column="mll_memo" property="mllMemo" jdbcType="VARCHAR" />
+    <result column="mll_creat_time_change" property="mllCreatTimeChange" jdbcType="VARCHAR" />
+    <result column="mll_creat_time" property="mllCreatTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mll_id, mll_ip, mll_account, mll_login_status, mll_memo, mll_creat_time_change, mll_creat_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.liangzi.mgr.blog.model.base.MgrLoginLogsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mgr_login_logs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from mgr_login_logs
+    where mll_id = #{mllId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from mgr_login_logs
+    where mll_id = #{mllId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liangzi.mgr.blog.model.base.MgrLoginLogsExample" >
+    delete from mgr_login_logs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liangzi.mgr.blog.model.base.MgrLoginLogs" >
+    insert into mgr_login_logs (mll_id, mll_ip, mll_account, 
+      mll_login_status, mll_memo, mll_creat_time_change, 
+      mll_creat_time)
+    values (#{mllId,jdbcType=BIGINT}, #{mllIp,jdbcType=VARCHAR}, #{mllAccount,jdbcType=VARCHAR}, 
+      #{mllLoginStatus,jdbcType=VARCHAR}, #{mllMemo,jdbcType=VARCHAR}, #{mllCreatTimeChange,jdbcType=VARCHAR}, 
+      #{mllCreatTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangzi.mgr.blog.model.base.MgrLoginLogs" >
+    insert into mgr_login_logs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mllId != null" >
+        mll_id,
+      </if>
+      <if test="mllIp != null" >
+        mll_ip,
+      </if>
+      <if test="mllAccount != null" >
+        mll_account,
+      </if>
+      <if test="mllLoginStatus != null" >
+        mll_login_status,
+      </if>
+      <if test="mllMemo != null" >
+        mll_memo,
+      </if>
+      <if test="mllCreatTimeChange != null" >
+        mll_creat_time_change,
+      </if>
+      <if test="mllCreatTime != null" >
+        mll_creat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mllId != null" >
+        #{mllId,jdbcType=BIGINT},
+      </if>
+      <if test="mllIp != null" >
+        #{mllIp,jdbcType=VARCHAR},
+      </if>
+      <if test="mllAccount != null" >
+        #{mllAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="mllLoginStatus != null" >
+        #{mllLoginStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="mllMemo != null" >
+        #{mllMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="mllCreatTimeChange != null" >
+        #{mllCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="mllCreatTime != null" >
+        #{mllCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liangzi.mgr.blog.model.base.MgrLoginLogsExample" resultType="java.lang.Integer" >
+    select count(*) from mgr_login_logs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mgr_login_logs
+    <set >
+      <if test="record.mllId != null" >
+        mll_id = #{record.mllId,jdbcType=BIGINT},
+      </if>
+      <if test="record.mllIp != null" >
+        mll_ip = #{record.mllIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mllAccount != null" >
+        mll_account = #{record.mllAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mllLoginStatus != null" >
+        mll_login_status = #{record.mllLoginStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mllMemo != null" >
+        mll_memo = #{record.mllMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mllCreatTimeChange != null" >
+        mll_creat_time_change = #{record.mllCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mllCreatTime != null" >
+        mll_creat_time = #{record.mllCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mgr_login_logs
+    set mll_id = #{record.mllId,jdbcType=BIGINT},
+      mll_ip = #{record.mllIp,jdbcType=VARCHAR},
+      mll_account = #{record.mllAccount,jdbcType=VARCHAR},
+      mll_login_status = #{record.mllLoginStatus,jdbcType=VARCHAR},
+      mll_memo = #{record.mllMemo,jdbcType=VARCHAR},
+      mll_creat_time_change = #{record.mllCreatTimeChange,jdbcType=VARCHAR},
+      mll_creat_time = #{record.mllCreatTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangzi.mgr.blog.model.base.MgrLoginLogs" >
+    update mgr_login_logs
+    <set >
+      <if test="mllIp != null" >
+        mll_ip = #{mllIp,jdbcType=VARCHAR},
+      </if>
+      <if test="mllAccount != null" >
+        mll_account = #{mllAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="mllLoginStatus != null" >
+        mll_login_status = #{mllLoginStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="mllMemo != null" >
+        mll_memo = #{mllMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="mllCreatTimeChange != null" >
+        mll_creat_time_change = #{mllCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="mllCreatTime != null" >
+        mll_creat_time = #{mllCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where mll_id = #{mllId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangzi.mgr.blog.model.base.MgrLoginLogs" >
+    update mgr_login_logs
+    set mll_ip = #{mllIp,jdbcType=VARCHAR},
+      mll_account = #{mllAccount,jdbcType=VARCHAR},
+      mll_login_status = #{mllLoginStatus,jdbcType=VARCHAR},
+      mll_memo = #{mllMemo,jdbcType=VARCHAR},
+      mll_creat_time_change = #{mllCreatTimeChange,jdbcType=VARCHAR},
+      mll_creat_time = #{mllCreatTime,jdbcType=TIMESTAMP}
+    where mll_id = #{mllId,jdbcType=BIGINT}
+  </update>
+  <select id="getLoginLogsCountForAll" resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		mgr_login_logs
+  </select>
+  <select id="getForPageList" parameterType="com.liangzi.blog.model.extend.PageModel" resultType="com.liangzi.mgr.blog.model.base.MgrLoginLogs">
+  	SELECT
+  		mll_id mllId,
+		mll_ip mllIp,
+		mll_account mllAccount,
+		mll_login_status mllLoginStatus,
+		mll_memo mllMemo ,
+		mll_creat_time mllCreatTime
+	FROM
+		mgr_login_logs
+	ORDER BY
+		mll_id DESC
+	LIMIT #{maxCount},#{pageSize}
+  </select>
+  <select id="getLoginLogsCountForSearch" parameterType="com.liangzi.mgr.blog.model.base.MgrLoginLogs" resultType="int">
+	  SELECT
+			count(*)
+		FROM
+			mgr_login_logs
+		<where>
+			<if test="mllIp != null and mllIp != '' ">
+				mll_ip like '%${mllIp}%'
+			</if>
+			<if test="mllAccount != null and mllAccount !=''">
+				and mll_account like '%${mllAccount}%'
+			</if>
+			<if test="mllLoginStatus != null and mllLoginStatus != ''">
+			 	and mll_login_status like '%${mllLoginStatus}%'
+			</if>
+			<if test="mllMemo != null and mllMemo != ''">
+			 	and mll_memo like '%${mllMemo}%'
+			</if>
+		</where>
+  </select>
+  <select id="getForVisitorsLogsPageListForSearch" parameterType="com.liangzi.blog.model.extend.PageModelForLoginLogs" resultType="com.liangzi.mgr.blog.model.base.MgrLoginLogs">
+ 		SELECT
+			mll_id mllId,
+			mll_ip mllIp,
+			mll_account mllAccount,
+			mll_login_status mllLoginStatus,
+			mll_memo mllMemo ,
+			mll_creat_time mllCreatTime
+		FROM
+			mgr_login_logs
+		<where>
+			<if test="mllIp != null and mllIp != '' ">
+				mll_ip like '%${mllIp}%'
+			</if>
+			<if test="mllAccount != null and mllAccount !=''">
+				and mll_account like '%${mllAccount}%'
+			</if>
+			<if test="mllLoginStatus != null and mllLoginStatus != ''">
+			 	and mll_login_status like '%${mllLoginStatus}%'
+			</if>
+			<if test="mllMemo != null and mllMemo != ''">
+			 	and mll_memo like '%${mllMemo}%'
+			</if>
+		</where>
+		ORDER BY
+				mll_id DESC
+		LIMIT #{maxCount},#{pageSize}	
+  </select>
+</mapper>

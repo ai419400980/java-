@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangzi.blog.dao.MoodMapper" >
+  <resultMap id="BaseResultMap" type="com.liangzi.blog.model.base.Mood" >
+    <id column="mo_id" property="moId" jdbcType="BIGINT" />
+    <result column="mo_status" property="moStatus" jdbcType="INTEGER" />
+    <result column="mo_creat_time_change" property="moCreatTimeChange" jdbcType="VARCHAR" />
+    <result column="mo_memo" property="moMemo" jdbcType="VARCHAR" />
+    <result column="mo_creat_time" property="moCreatTime" jdbcType="TIMESTAMP" />
+    <result column="mo_modify_time" property="moModifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.liangzi.blog.model.base.Mood" extends="BaseResultMap" >
+    <result column="mo_content" property="moContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mo_id, mo_status, mo_creat_time_change, mo_memo, mo_creat_time, mo_modify_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    mo_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.liangzi.blog.model.base.MoodExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mood
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.liangzi.blog.model.base.MoodExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mood
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mood
+    where mo_id = #{moId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from mood
+    where mo_id = #{moId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liangzi.blog.model.base.MoodExample" >
+    delete from mood
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liangzi.blog.model.base.Mood" >
+    insert into mood (mo_id, mo_status, mo_creat_time_change, 
+      mo_memo, mo_creat_time, mo_modify_time, 
+      mo_content)
+    values (#{moId,jdbcType=BIGINT}, #{moStatus,jdbcType=INTEGER}, #{moCreatTimeChange,jdbcType=VARCHAR}, 
+      #{moMemo,jdbcType=VARCHAR}, #{moCreatTime,jdbcType=TIMESTAMP}, #{moModifyTime,jdbcType=TIMESTAMP}, 
+      #{moContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangzi.blog.model.base.Mood" >
+    insert into mood
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="moId != null" >
+        mo_id,
+      </if>
+      <if test="moStatus != null" >
+        mo_status,
+      </if>
+      <if test="moCreatTimeChange != null" >
+        mo_creat_time_change,
+      </if>
+      <if test="moMemo != null" >
+        mo_memo,
+      </if>
+      <if test="moCreatTime != null" >
+        mo_creat_time,
+      </if>
+      <if test="moModifyTime != null" >
+        mo_modify_time,
+      </if>
+      <if test="moContent != null" >
+        mo_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="moId != null" >
+        #{moId,jdbcType=BIGINT},
+      </if>
+      <if test="moStatus != null" >
+        #{moStatus,jdbcType=INTEGER},
+      </if>
+      <if test="moCreatTimeChange != null" >
+        #{moCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="moMemo != null" >
+        #{moMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="moCreatTime != null" >
+        #{moCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="moModifyTime != null" >
+        #{moModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="moContent != null" >
+        #{moContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liangzi.blog.model.base.MoodExample" resultType="java.lang.Integer" >
+    select count(*) from mood
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mood
+    <set >
+      <if test="record.moId != null" >
+        mo_id = #{record.moId,jdbcType=BIGINT},
+      </if>
+      <if test="record.moStatus != null" >
+        mo_status = #{record.moStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.moCreatTimeChange != null" >
+        mo_creat_time_change = #{record.moCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moMemo != null" >
+        mo_memo = #{record.moMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moCreatTime != null" >
+        mo_creat_time = #{record.moCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.moModifyTime != null" >
+        mo_modify_time = #{record.moModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.moContent != null" >
+        mo_content = #{record.moContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update mood
+    set mo_id = #{record.moId,jdbcType=BIGINT},
+      mo_status = #{record.moStatus,jdbcType=INTEGER},
+      mo_creat_time_change = #{record.moCreatTimeChange,jdbcType=VARCHAR},
+      mo_memo = #{record.moMemo,jdbcType=VARCHAR},
+      mo_creat_time = #{record.moCreatTime,jdbcType=TIMESTAMP},
+      mo_modify_time = #{record.moModifyTime,jdbcType=TIMESTAMP},
+      mo_content = #{record.moContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mood
+    set mo_id = #{record.moId,jdbcType=BIGINT},
+      mo_status = #{record.moStatus,jdbcType=INTEGER},
+      mo_creat_time_change = #{record.moCreatTimeChange,jdbcType=VARCHAR},
+      mo_memo = #{record.moMemo,jdbcType=VARCHAR},
+      mo_creat_time = #{record.moCreatTime,jdbcType=TIMESTAMP},
+      mo_modify_time = #{record.moModifyTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangzi.blog.model.base.Mood" >
+    update mood
+    <set >
+      <if test="moStatus != null" >
+        mo_status = #{moStatus,jdbcType=INTEGER},
+      </if>
+      <if test="moCreatTimeChange != null" >
+        mo_creat_time_change = #{moCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="moMemo != null" >
+        mo_memo = #{moMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="moCreatTime != null" >
+        mo_creat_time = #{moCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="moModifyTime != null" >
+        mo_modify_time = #{moModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="moContent != null" >
+        mo_content = #{moContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where mo_id = #{moId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.liangzi.blog.model.base.Mood" >
+    update mood
+    set mo_status = #{moStatus,jdbcType=INTEGER},
+      mo_creat_time_change = #{moCreatTimeChange,jdbcType=VARCHAR},
+      mo_memo = #{moMemo,jdbcType=VARCHAR},
+      mo_creat_time = #{moCreatTime,jdbcType=TIMESTAMP},
+      mo_modify_time = #{moModifyTime,jdbcType=TIMESTAMP},
+      mo_content = #{moContent,jdbcType=LONGVARCHAR}
+    where mo_id = #{moId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangzi.blog.model.base.Mood" >
+    update mood
+    set mo_status = #{moStatus,jdbcType=INTEGER},
+      mo_creat_time_change = #{moCreatTimeChange,jdbcType=VARCHAR},
+      mo_memo = #{moMemo,jdbcType=VARCHAR},
+      mo_creat_time = #{moCreatTime,jdbcType=TIMESTAMP},
+      mo_modify_time = #{moModifyTime,jdbcType=TIMESTAMP}
+    where mo_id = #{moId,jdbcType=BIGINT}
+  </update>
+  <select id="selectForCount" resultType="int" parameterType="int">
+ 	 SELECT
+		count(*)
+	FROM
+		mood
+	WHERE
+		mo_status = #{value}
+  </select>
+  <select id="selectForMood" parameterType="com.liangzi.blog.model.extend.PageModel" resultType="com.liangzi.blog.model.base.Mood">
+  	SELECT
+  		mo_id moId,
+  		mo_content moContent,
+  		mo_creat_time moCreatTime
+	FROM
+		mood
+	WHERE
+		mo_status = #{status}
+	ORDER BY
+		mo_id DESC
+	LIMIT #{maxCount},#{pageSize}
+  </select>
+  
+  <select id="getMoodCountForAll" resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		mood
+  </select>
+  
+  <select id="getForPageList" parameterType="com.liangzi.blog.model.extend.PageModel" resultType="com.liangzi.blog.model.base.Mood">
+  	SELECT
+  		mo_id moId,
+  		mo_content moContent,
+  		mo_status moStatus,
+  		mo_creat_time moCreatTime
+	FROM
+		mood
+	ORDER BY
+		mo_id DESC
+	LIMIT #{maxCount},#{pageSize}
+  </select>
+  
+  <select id="getMoodCountForSearch" parameterType="com.liangzi.blog.model.base.Mood" resultType="int">
+ 	SELECT
+		count(*)
+	FROM
+		mood
+	<where>
+		<if test="moStatus != null">
+			mo_status = #{moStatus}
+		</if>
+	</where>
+  </select>
+  
+  <select id="getForMoodPageListForSearch" parameterType="com.liangzi.blog.model.extend.PageModelForMood" resultType="com.liangzi.blog.model.base.Mood">
+ 	SELECT
+		mo_id moId,
+  		mo_content moContent,
+  		mo_status moStatus,
+  		mo_creat_time moCreatTime
+	FROM
+		mood
+	<where>
+		<if test="moStatus != null">
+			mo_status = #{moStatus}
+		</if>
+	</where>
+	ORDER BY
+			mo_id DESC
+	LIMIT #{maxCount},#{pageSize}	
+ </select>
+</mapper>

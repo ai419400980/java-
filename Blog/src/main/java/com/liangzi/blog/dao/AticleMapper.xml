@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangzi.blog.dao.AticleMapper" >
+  <resultMap id="BaseResultMap" type="com.liangzi.blog.model.base.Aticle" >
+    <id column="at_id" property="atId" jdbcType="BIGINT" />
+    <result column="at_title" property="atTitle" jdbcType="VARCHAR" />
+    <result column="at_image_url" property="atImageUrl" jdbcType="VARCHAR" />
+    <result column="ac_author" property="acAuthor" jdbcType="VARCHAR" />
+    <result column="at_introduction" property="atIntroduction" jdbcType="VARCHAR" />
+    <result column="at_content" property="atContent" jdbcType="VARCHAR" />
+    <result column="at_read_count" property="atReadCount" jdbcType="BIGINT" />
+    <result column="at_praise_count" property="atPraiseCount" jdbcType="BIGINT" />
+    <result column="at_up_index" property="atUpIndex" jdbcType="INTEGER" />
+    <result column="at_type_id" property="atTypeId" jdbcType="VARCHAR" />
+    <result column="at_creat_time_change" property="atCreatTimeChange" jdbcType="VARCHAR" />
+    <result column="at_memo" property="atMemo" jdbcType="VARCHAR" />
+    <result column="at_creat_time" property="atCreatTime" jdbcType="TIMESTAMP" />
+    <result column="at_modify_time" property="atModifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    at_id, at_title, at_image_url, ac_author, at_introduction, at_content, at_read_count, 
+    at_praise_count, at_up_index, at_type_id, at_creat_time_change, at_memo, at_creat_time, 
+    at_modify_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.liangzi.blog.model.base.AticleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aticle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aticle
+    where at_id = #{atId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aticle
+    where at_id = #{atId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liangzi.blog.model.base.AticleExample" >
+    delete from aticle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liangzi.blog.model.base.Aticle" >
+    insert into aticle (at_id, at_title, at_image_url, 
+      ac_author, at_introduction, at_content, 
+      at_read_count, at_praise_count, at_up_index, 
+      at_type_id, at_creat_time_change, at_memo, 
+      at_creat_time, at_modify_time)
+    values (#{atId,jdbcType=BIGINT}, #{atTitle,jdbcType=VARCHAR}, #{atImageUrl,jdbcType=VARCHAR}, 
+      #{acAuthor,jdbcType=VARCHAR}, #{atIntroduction,jdbcType=VARCHAR}, #{atContent,jdbcType=VARCHAR}, 
+      #{atReadCount,jdbcType=BIGINT}, #{atPraiseCount,jdbcType=BIGINT}, #{atUpIndex,jdbcType=INTEGER}, 
+      #{atTypeId,jdbcType=VARCHAR}, #{atCreatTimeChange,jdbcType=VARCHAR}, #{atMemo,jdbcType=VARCHAR}, 
+      #{atCreatTime,jdbcType=TIMESTAMP}, #{atModifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangzi.blog.model.base.Aticle" >
+    insert into aticle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="atId != null" >
+        at_id,
+      </if>
+      <if test="atTitle != null" >
+        at_title,
+      </if>
+      <if test="atImageUrl != null" >
+        at_image_url,
+      </if>
+      <if test="acAuthor != null" >
+        ac_author,
+      </if>
+      <if test="atIntroduction != null" >
+        at_introduction,
+      </if>
+      <if test="atContent != null" >
+        at_content,
+      </if>
+      <if test="atReadCount != null" >
+        at_read_count,
+      </if>
+      <if test="atPraiseCount != null" >
+        at_praise_count,
+      </if>
+      <if test="atUpIndex != null" >
+        at_up_index,
+      </if>
+      <if test="atTypeId != null" >
+        at_type_id,
+      </if>
+      <if test="atCreatTimeChange != null" >
+        at_creat_time_change,
+      </if>
+      <if test="atMemo != null" >
+        at_memo,
+      </if>
+      <if test="atCreatTime != null" >
+        at_creat_time,
+      </if>
+      <if test="atModifyTime != null" >
+        at_modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="atId != null" >
+        #{atId,jdbcType=BIGINT},
+      </if>
+      <if test="atTitle != null" >
+        #{atTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="atImageUrl != null" >
+        #{atImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="acAuthor != null" >
+        #{acAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="atIntroduction != null" >
+        #{atIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="atContent != null" >
+        #{atContent,jdbcType=VARCHAR},
+      </if>
+      <if test="atReadCount != null" >
+        #{atReadCount,jdbcType=BIGINT},
+      </if>
+      <if test="atPraiseCount != null" >
+        #{atPraiseCount,jdbcType=BIGINT},
+      </if>
+      <if test="atUpIndex != null" >
+        #{atUpIndex,jdbcType=INTEGER},
+      </if>
+      <if test="atTypeId != null" >
+        #{atTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="atCreatTimeChange != null" >
+        #{atCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="atMemo != null" >
+        #{atMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="atCreatTime != null" >
+        #{atCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="atModifyTime != null" >
+        #{atModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liangzi.blog.model.base.AticleExample" resultType="java.lang.Integer" >
+    select count(*) from aticle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aticle
+    <set >
+      <if test="record.atId != null" >
+        at_id = #{record.atId,jdbcType=BIGINT},
+      </if>
+      <if test="record.atTitle != null" >
+        at_title = #{record.atTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.atImageUrl != null" >
+        at_image_url = #{record.atImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acAuthor != null" >
+        ac_author = #{record.acAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.atIntroduction != null" >
+        at_introduction = #{record.atIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.atContent != null" >
+        at_content = #{record.atContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.atReadCount != null" >
+        at_read_count = #{record.atReadCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.atPraiseCount != null" >
+        at_praise_count = #{record.atPraiseCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.atUpIndex != null" >
+        at_up_index = #{record.atUpIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.atTypeId != null" >
+        at_type_id = #{record.atTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.atCreatTimeChange != null" >
+        at_creat_time_change = #{record.atCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.atMemo != null" >
+        at_memo = #{record.atMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.atCreatTime != null" >
+        at_creat_time = #{record.atCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.atModifyTime != null" >
+        at_modify_time = #{record.atModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aticle
+    set at_id = #{record.atId,jdbcType=BIGINT},
+      at_title = #{record.atTitle,jdbcType=VARCHAR},
+      at_image_url = #{record.atImageUrl,jdbcType=VARCHAR},
+      ac_author = #{record.acAuthor,jdbcType=VARCHAR},
+      at_introduction = #{record.atIntroduction,jdbcType=VARCHAR},
+      at_content = #{record.atContent,jdbcType=VARCHAR},
+      at_read_count = #{record.atReadCount,jdbcType=BIGINT},
+      at_praise_count = #{record.atPraiseCount,jdbcType=BIGINT},
+      at_up_index = #{record.atUpIndex,jdbcType=INTEGER},
+      at_type_id = #{record.atTypeId,jdbcType=VARCHAR},
+      at_creat_time_change = #{record.atCreatTimeChange,jdbcType=VARCHAR},
+      at_memo = #{record.atMemo,jdbcType=VARCHAR},
+      at_creat_time = #{record.atCreatTime,jdbcType=TIMESTAMP},
+      at_modify_time = #{record.atModifyTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangzi.blog.model.base.Aticle" >
+    update aticle
+    <set >
+      <if test="atTitle != null" >
+        at_title = #{atTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="atImageUrl != null" >
+        at_image_url = #{atImageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="acAuthor != null" >
+        ac_author = #{acAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="atIntroduction != null" >
+        at_introduction = #{atIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="atContent != null" >
+        at_content = #{atContent,jdbcType=VARCHAR},
+      </if>
+      <if test="atReadCount != null" >
+        at_read_count = #{atReadCount,jdbcType=BIGINT},
+      </if>
+      <if test="atPraiseCount != null" >
+        at_praise_count = #{atPraiseCount,jdbcType=BIGINT},
+      </if>
+      <if test="atUpIndex != null" >
+        at_up_index = #{atUpIndex,jdbcType=INTEGER},
+      </if>
+      <if test="atTypeId != null" >
+        at_type_id = #{atTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="atCreatTimeChange != null" >
+        at_creat_time_change = #{atCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="atMemo != null" >
+        at_memo = #{atMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="atCreatTime != null" >
+        at_creat_time = #{atCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="atModifyTime != null" >
+        at_modify_time = #{atModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where at_id = #{atId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangzi.blog.model.base.Aticle" >
+    update aticle
+    set at_title = #{atTitle,jdbcType=VARCHAR},
+      at_image_url = #{atImageUrl,jdbcType=VARCHAR},
+      ac_author = #{acAuthor,jdbcType=VARCHAR},
+      at_introduction = #{atIntroduction,jdbcType=VARCHAR},
+      at_content = #{atContent,jdbcType=VARCHAR},
+      at_read_count = #{atReadCount,jdbcType=BIGINT},
+      at_praise_count = #{atPraiseCount,jdbcType=BIGINT},
+      at_up_index = #{atUpIndex,jdbcType=INTEGER},
+      at_type_id = #{atTypeId,jdbcType=VARCHAR},
+      at_creat_time_change = #{atCreatTimeChange,jdbcType=VARCHAR},
+      at_memo = #{atMemo,jdbcType=VARCHAR},
+      at_creat_time = #{atCreatTime,jdbcType=TIMESTAMP},
+      at_modify_time = #{atModifyTime,jdbcType=TIMESTAMP}
+    where at_id = #{atId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectByOrderAtid" resultType="com.liangzi.blog.model.base.Aticle">
+  	SELECT
+		at_id atId,
+		at_title atTitle
+	FROM
+		aticle
+	ORDER BY
+		at_id DESC
+	LIMIT 8
+  </select>
+  
+  <select id="selectByOrderAtReadCount" resultType="com.liangzi.blog.model.base.Aticle">
+  	SELECT
+		at_id atId,
+		at_title atTitle
+	FROM
+		aticle
+	ORDER BY
+		at_Read_Count DESC
+	LIMIT 5
+  </select>
+  
+  <select id="selectByTypeForCount"  resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		aticle
+	WHERE
+		aticle.at_type_id = #{value}
+  </select>
+  
+  <select id="selectForPage" parameterType="com.liangzi.blog.model.extend.PageModel" resultType="com.liangzi.blog.model.base.Aticle">
+  	SELECT
+		at_id atId,
+		at_title atTitle,
+		ac_author acAuthor,
+		at_image_url atImageUrl,
+		at_introduction atIntroduction,
+		at_read_count atReadCount,
+		at_praise_count atPraiseCount,
+		at_type_id atTypeId,
+		at_creat_time atCreatTime
+	FROM
+		aticle
+	WHERE
+		at_type_id = #{type}
+	ORDER BY
+		at_id DESC
+	LIMIT #{maxCount},#{pageSize}
+  </select> <select id="selectForSearch" parameterType="com.liangzi.blog.model.extend.PageModel" resultType="com.liangzi.blog.model.base.Aticle">
+  	SELECT
+		at_id atId,
+		at_title atTitle,
+		ac_author acAuthor,
+		at_image_url atImageUrl,
+		at_introduction atIntroduction,
+		at_read_count atReadCount,
+		at_praise_count atPraiseCount,
+		at_type_id atTypeId,
+		at_creat_time atCreatTime
+	FROM
+		aticle
+	WHERE
+		at_title LIKE #{tittle}
+	ORDER BY
+		at_id DESC
+	LIMIT #{maxCount},#{pageSize}
+  </select>
+  <select id="selectForSearchCount" parameterType="String" resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		aticle
+	WHERE
+		at_title LIKE #{tittle}
+  </select>
+  
+  <select id="getAticleCountForAll" resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		aticle
+  </select>
+  
+  <select id="getForPageList" parameterType="com.liangzi.blog.model.extend.PageModel" resultType="com.liangzi.blog.model.base.Aticle">
+  	SELECT
+  		at_id atId,
+  		at_title atTitle,
+  		ac_author acAuthor,
+		at_image_url atImageUrl,
+  		at_read_count atReadCount,
+  		at_praise_count atPraiseCount,
+  		at_up_index atUpIndex,
+  		at_type_id atTypeId,
+  		at_creat_time atCreatTime
+	FROM
+		aticle
+	ORDER BY
+		at_id DESC
+	LIMIT #{maxCount},#{pageSize}
+  </select>
+  
+  <select id="getAticleCountForSearch" parameterType="com.liangzi.blog.model.base.Aticle" resultType="int">
+ 	SELECT
+		count(*)
+	FROM
+		aticle
+	<where>
+		<if test="atUpIndex != null">
+			at_up_index = #{atUpIndex}
+		</if>
+		<if test="atTitle != null and atTitle !=''">
+			and at_title = #{atTitle}
+		</if>
+		<if test="atTypeId != null and atTypeId !='' ">
+			and at_type_id = #{atTypeId}
+		</if>
+	</where>
+  </select>
+  
+  <select id="getForAticlePageListForSearch" parameterType="com.liangzi.blog.model.extend.PageModelForAticle" resultType="com.liangzi.blog.model.base.Aticle">
+ 	SELECT
+		at_id atId,
+  		at_title atTitle,
+  		ac_author acAuthor,
+  		at_image_url atImageUrl,
+  		at_read_count atReadCount,
+  		at_praise_count atPraiseCount,
+  		at_up_index atUpIndex,
+  		at_type_id atTypeId,
+  		at_creat_time atCreatTime
+	FROM
+		aticle
+	<where>
+		<if test="atUpIndex != null">
+			at_up_index = #{atUpIndex}
+		</if>
+		<if test="atTitle != null and atTitle !=''">
+			and at_title = #{atTitle}
+		</if>
+		<if test="atTypeId != null and atTypeId !='' ">
+			and at_type_id = #{atTypeId}
+		</if>
+	</where>
+	ORDER BY
+			at_id DESC
+	LIMIT #{maxCount},#{pageSize}	
+ </select>
+</mapper>

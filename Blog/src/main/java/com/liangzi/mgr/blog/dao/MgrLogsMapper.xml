@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangzi.mgr.blog.dao.MgrLogsMapper" >
+  <resultMap id="BaseResultMap" type="com.liangzi.mgr.blog.model.base.MgrLogs" >
+    <id column="ml_id" property="mlId" jdbcType="BIGINT" />
+    <result column="mgr_ip" property="mgrIp" jdbcType="VARCHAR" />
+    <result column="ml_name" property="mlName" jdbcType="VARCHAR" />
+    <result column="ml_target" property="mlTarget" jdbcType="VARCHAR" />
+    <result column="ml_operation_content" property="mlOperationContent" jdbcType="VARCHAR" />
+    <result column="ml_creat_time_change" property="mlCreatTimeChange" jdbcType="VARCHAR" />
+    <result column="ml_memo" property="mlMemo" jdbcType="VARCHAR" />
+    <result column="ml_creat_time" property="mlCreatTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ml_id, mgr_ip, ml_name, ml_target, ml_operation_content, ml_creat_time_change, ml_memo, 
+    ml_creat_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.liangzi.mgr.blog.model.base.MgrLogsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mgr_logs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from mgr_logs
+    where ml_id = #{mlId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from mgr_logs
+    where ml_id = #{mlId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liangzi.mgr.blog.model.base.MgrLogsExample" >
+    delete from mgr_logs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liangzi.mgr.blog.model.base.MgrLogs" >
+    insert into mgr_logs (ml_id, mgr_ip, ml_name, 
+      ml_target, ml_operation_content, ml_creat_time_change, 
+      ml_memo, ml_creat_time)
+    values (#{mlId,jdbcType=BIGINT}, #{mgrIp,jdbcType=VARCHAR}, #{mlName,jdbcType=VARCHAR}, 
+      #{mlTarget,jdbcType=VARCHAR}, #{mlOperationContent,jdbcType=VARCHAR}, #{mlCreatTimeChange,jdbcType=VARCHAR}, 
+      #{mlMemo,jdbcType=VARCHAR}, #{mlCreatTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangzi.mgr.blog.model.base.MgrLogs" >
+    insert into mgr_logs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mlId != null" >
+        ml_id,
+      </if>
+      <if test="mgrIp != null" >
+        mgr_ip,
+      </if>
+      <if test="mlName != null" >
+        ml_name,
+      </if>
+      <if test="mlTarget != null" >
+        ml_target,
+      </if>
+      <if test="mlOperationContent != null" >
+        ml_operation_content,
+      </if>
+      <if test="mlCreatTimeChange != null" >
+        ml_creat_time_change,
+      </if>
+      <if test="mlMemo != null" >
+        ml_memo,
+      </if>
+      <if test="mlCreatTime != null" >
+        ml_creat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mlId != null" >
+        #{mlId,jdbcType=BIGINT},
+      </if>
+      <if test="mgrIp != null" >
+        #{mgrIp,jdbcType=VARCHAR},
+      </if>
+      <if test="mlName != null" >
+        #{mlName,jdbcType=VARCHAR},
+      </if>
+      <if test="mlTarget != null" >
+        #{mlTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="mlOperationContent != null" >
+        #{mlOperationContent,jdbcType=VARCHAR},
+      </if>
+      <if test="mlCreatTimeChange != null" >
+        #{mlCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="mlMemo != null" >
+        #{mlMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="mlCreatTime != null" >
+        #{mlCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liangzi.mgr.blog.model.base.MgrLogsExample" resultType="java.lang.Integer" >
+    select count(*) from mgr_logs
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mgr_logs
+    <set >
+      <if test="record.mlId != null" >
+        ml_id = #{record.mlId,jdbcType=BIGINT},
+      </if>
+      <if test="record.mgrIp != null" >
+        mgr_ip = #{record.mgrIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mlName != null" >
+        ml_name = #{record.mlName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mlTarget != null" >
+        ml_target = #{record.mlTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mlOperationContent != null" >
+        ml_operation_content = #{record.mlOperationContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mlCreatTimeChange != null" >
+        ml_creat_time_change = #{record.mlCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mlMemo != null" >
+        ml_memo = #{record.mlMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mlCreatTime != null" >
+        ml_creat_time = #{record.mlCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mgr_logs
+    set ml_id = #{record.mlId,jdbcType=BIGINT},
+      mgr_ip = #{record.mgrIp,jdbcType=VARCHAR},
+      ml_name = #{record.mlName,jdbcType=VARCHAR},
+      ml_target = #{record.mlTarget,jdbcType=VARCHAR},
+      ml_operation_content = #{record.mlOperationContent,jdbcType=VARCHAR},
+      ml_creat_time_change = #{record.mlCreatTimeChange,jdbcType=VARCHAR},
+      ml_memo = #{record.mlMemo,jdbcType=VARCHAR},
+      ml_creat_time = #{record.mlCreatTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangzi.mgr.blog.model.base.MgrLogs" >
+    update mgr_logs
+    <set >
+      <if test="mgrIp != null" >
+        mgr_ip = #{mgrIp,jdbcType=VARCHAR},
+      </if>
+      <if test="mlName != null" >
+        ml_name = #{mlName,jdbcType=VARCHAR},
+      </if>
+      <if test="mlTarget != null" >
+        ml_target = #{mlTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="mlOperationContent != null" >
+        ml_operation_content = #{mlOperationContent,jdbcType=VARCHAR},
+      </if>
+      <if test="mlCreatTimeChange != null" >
+        ml_creat_time_change = #{mlCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="mlMemo != null" >
+        ml_memo = #{mlMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="mlCreatTime != null" >
+        ml_creat_time = #{mlCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ml_id = #{mlId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangzi.mgr.blog.model.base.MgrLogs" >
+    update mgr_logs
+    set mgr_ip = #{mgrIp,jdbcType=VARCHAR},
+      ml_name = #{mlName,jdbcType=VARCHAR},
+      ml_target = #{mlTarget,jdbcType=VARCHAR},
+      ml_operation_content = #{mlOperationContent,jdbcType=VARCHAR},
+      ml_creat_time_change = #{mlCreatTimeChange,jdbcType=VARCHAR},
+      ml_memo = #{mlMemo,jdbcType=VARCHAR},
+      ml_creat_time = #{mlCreatTime,jdbcType=TIMESTAMP}
+    where ml_id = #{mlId,jdbcType=BIGINT}
+  </update>
+  <select id="getLoginOperationCountForAll" resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		mgr_logs
+  </select>
+  <select id="getForPageList" parameterType="com.liangzi.blog.model.extend.PageModel" resultType="com.liangzi.mgr.blog.model.base.MgrLogs">
+  	SELECT
+  		ml_id mlId,
+  		mgr_ip mgrIp,
+		ml_name mlName,
+		ml_target mlTarget,
+		ml_operation_content mlOperationContent,
+		ml_memo mlMemo,
+		ml_creat_time mlCreatTime
+	FROM
+		mgr_logs
+	ORDER BY
+		ml_id DESC
+	LIMIT #{maxCount},#{pageSize}
+  </select>
+  
+  <select id="getLoginOperationCountForSearch" parameterType="com.liangzi.mgr.blog.model.base.MgrLogs" resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		mgr_logs
+	<where>
+		<if test="mgrIp != null and mgrIp != '' ">
+			mgr_ip like '%${mgrIp}%'
+		</if>
+		<if test="mlName != null and mlName !=''">
+			and ml_name like '%${mlName}%'
+		</if>
+		<if test="mlTarget != null and mlTarget != ''">
+		 	and ml_target like '%${mlTarget}%'
+		</if>
+		<if test="mlOperationContent != null and mlOperationContent != ''">
+		 	and ml_operation_content like '%${mlOperationContent}%'
+		</if>
+		<if test="mlMemo != null and mlMemo != ''">
+		 	and ml_memo like '%${mlMemo}%'
+		</if>
+	</where>
+  </select>
+  <select id="getForLoginOperationPageListForSearch" resultType="com.liangzi.mgr.blog.model.base.MgrLogs" parameterType="com.liangzi.blog.model.extend.PageModelForLoginOperationLogin">
+  	SELECT
+		ml_id mlId,
+  		mgr_ip mgrIp,
+		ml_name mlName,
+		ml_target mlTarget,
+		ml_operation_content mlOperationContent,
+		ml_memo mlMemo,
+		ml_creat_time mlCreatTime
+	FROM
+		mgr_logs
+	<where>
+		<if test="mgrIp != null and mgrIp != '' ">
+			mgr_ip like '%${mgrIp}%'
+		</if>
+		<if test="mlName != null and mlName !=''">
+			and ml_name like '%${mlName}%'
+		</if>
+		<if test="mlTarget != null and mlTarget != ''">
+		 	and ml_target like '%${mlTarget}%'
+		</if>
+		<if test="mlOperationContent != null and mlOperationContent != ''">
+		 	and ml_operation_content like '%${mlOperationContent}%'
+		</if>
+		<if test="mlMemo != null and mlMemo != ''">
+		 	and ml_memo like '%${mlMemo}%'
+		</if>
+	</where>
+	ORDER BY
+			ml_id DESC
+	LIMIT #{maxCount},#{pageSize}	
+  </select>
+</mapper>

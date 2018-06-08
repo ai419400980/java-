@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>留言板----一个站在web后端设计之路的男青年个人博客网站</title>
+<meta name="keywords" content="个人博客,梁钟霖个人博客,个人博客模板,梁钟霖,模板分享,个人博客模板,html模板" />
+<meta name="description" content="梁钟霖个人博客网站----一个站在web后端设计之路的男青年个人博客网站，提供html模板和博客模板免费资源下载的个人原创网站。" />
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport">
+<link href="phone_css/base.css" rel="stylesheet">
+<link href="phone_css/main.css" rel="stylesheet">
+</head>
+<body>
+	<header>
+		<div class="logo"><a href="/"><img src="phone_images/logo.jpg"></a></div>
+		<div class="menu">
+			 <ul>
+				<li><a href="index.html"><span>首页</span></a></li>
+				<li><a href="about.html"><span>关于我</span></a></li>
+				<li><a href="slowlife.html"><span>慢生活</span></a></li>
+				<li><a href="knowledge.html"><span>学无止境</span></a></li>
+				<li><a href="success.html"><span>模板分享</span></a></li>
+				<li><a href="mood.html"><span>碎言碎语</span></a></li>
+				<li><a href="message.html"><span>留言版</span></a></li>
+		  </ul>
+		</div>
+	</header>
+		<center style="margin-top: 5px ;color: red"><h2>手机端不提供留言，请移步电脑端~</h2></center>
+	<div class="bloglist">
+		#foreach($indexlist in $listComment)
+		<ul class="arrow_box">
+			<div class="sy">
+				<p><img src="phone_images/001.png" alt="生活的坑都是自己挖的">$!indexlist.coContent</p>
+			</div>
+			<span class="dateview" style="margin-top: 20px">$!indexlist.coCreatTimeChange</span>
+		</ul>
+		#end
+	</div>
+	<center>
+		<input type="hidden" value="$!{maxPage}" id="maxPage">
+		<input type="hidden" value="message.html?" id="skipurl">
+		<table style="margin-top: 20px">
+			<tr align="center">
+				<td style="color: darkviolet " >第$!{nowPageNum}页/共$!{maxPage}页</td>
+				<td><a href="message.html?nowPageNum=1" style="color: dodgerblue">首页</a></td>
+				<td>
+					#if($!{nowPageNum}>1)
+					<a href="message.html?nowPageNum=$!{nowPageNumLast}" style="color: dodgerblue">上一页</a>
+					#else
+					上一页
+					#end
+				</td>
+				<td><c:choose>
+					#if($!{nowPageNum}<$!{maxPage})
+					<a href="message.html?nowPageNum=$!{nowPageNumAdd}" style="color: dodgerblue">下一页</a>
+					#else
+					下一页
+					#end
+				</td>
+				<td><a href="message.html?nowPageNum=$!{maxPage}" style="color: dodgerblue">尾页</a></td>
+				<td><input style="width: 30px" type="text" name="" id="nowPageNum"> <input type="button" onclick="skip()" style="color: deeppink " value=" 跳  转 " ></td>
+			</tr>
+		</table>
+	</center>
+	<footer>
+		<p>CopyRight© 2016版权所有  ICP备案号：闽ICP备16034451号</a></p>
+		<p>Design by LiangZi QQ:419400980</a></p>
+	</footer>
+</body>
+<script src="js/myJs.js"></script>
+</html>

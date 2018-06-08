@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangzi.blog.dao.AticleCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.liangzi.blog.model.base.AticleComment" >
+    <id column="ac_id" property="acId" jdbcType="BIGINT" />
+    <result column="ac_aticle_id" property="acAticleId" jdbcType="BIGINT" />
+    <result column="ac_content" property="acContent" jdbcType="VARCHAR" />
+    <result column="ac_status" property="acStatus" jdbcType="INTEGER" />
+    <result column="ac_creat_time_change" property="acCreatTimeChange" jdbcType="VARCHAR" />
+    <result column="ac_memo" property="acMemo" jdbcType="VARCHAR" />
+    <result column="ac_creat_time" property="acCreatTime" jdbcType="TIMESTAMP" />
+    <result column="ac_modify_time" property="acModifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ac_id, ac_aticle_id, ac_content, ac_status, ac_creat_time_change, ac_memo, ac_creat_time, 
+    ac_modify_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.liangzi.blog.model.base.AticleCommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from aticle_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from aticle_comment
+    where ac_id = #{acId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from aticle_comment
+    where ac_id = #{acId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liangzi.blog.model.base.AticleCommentExample" >
+    delete from aticle_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liangzi.blog.model.base.AticleComment" >
+    insert into aticle_comment (ac_id, ac_aticle_id, ac_content, 
+      ac_status, ac_creat_time_change, ac_memo, 
+      ac_creat_time, ac_modify_time)
+    values (#{acId,jdbcType=BIGINT}, #{acAticleId,jdbcType=BIGINT}, #{acContent,jdbcType=VARCHAR}, 
+      #{acStatus,jdbcType=INTEGER}, #{acCreatTimeChange,jdbcType=VARCHAR}, #{acMemo,jdbcType=VARCHAR}, 
+      #{acCreatTime,jdbcType=TIMESTAMP}, #{acModifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangzi.blog.model.base.AticleComment" >
+    insert into aticle_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="acId != null" >
+        ac_id,
+      </if>
+      <if test="acAticleId != null" >
+        ac_aticle_id,
+      </if>
+      <if test="acContent != null" >
+        ac_content,
+      </if>
+      <if test="acStatus != null" >
+        ac_status,
+      </if>
+      <if test="acCreatTimeChange != null" >
+        ac_creat_time_change,
+      </if>
+      <if test="acMemo != null" >
+        ac_memo,
+      </if>
+      <if test="acCreatTime != null" >
+        ac_creat_time,
+      </if>
+      <if test="acModifyTime != null" >
+        ac_modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="acId != null" >
+        #{acId,jdbcType=BIGINT},
+      </if>
+      <if test="acAticleId != null" >
+        #{acAticleId,jdbcType=BIGINT},
+      </if>
+      <if test="acContent != null" >
+        #{acContent,jdbcType=VARCHAR},
+      </if>
+      <if test="acStatus != null" >
+        #{acStatus,jdbcType=INTEGER},
+      </if>
+      <if test="acCreatTimeChange != null" >
+        #{acCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="acMemo != null" >
+        #{acMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="acCreatTime != null" >
+        #{acCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acModifyTime != null" >
+        #{acModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liangzi.blog.model.base.AticleCommentExample" resultType="java.lang.Integer" >
+    select count(*) from aticle_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update aticle_comment
+    <set >
+      <if test="record.acId != null" >
+        ac_id = #{record.acId,jdbcType=BIGINT},
+      </if>
+      <if test="record.acAticleId != null" >
+        ac_aticle_id = #{record.acAticleId,jdbcType=BIGINT},
+      </if>
+      <if test="record.acContent != null" >
+        ac_content = #{record.acContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acStatus != null" >
+        ac_status = #{record.acStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.acCreatTimeChange != null" >
+        ac_creat_time_change = #{record.acCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acMemo != null" >
+        ac_memo = #{record.acMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acCreatTime != null" >
+        ac_creat_time = #{record.acCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.acModifyTime != null" >
+        ac_modify_time = #{record.acModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update aticle_comment
+    set ac_id = #{record.acId,jdbcType=BIGINT},
+      ac_aticle_id = #{record.acAticleId,jdbcType=BIGINT},
+      ac_content = #{record.acContent,jdbcType=VARCHAR},
+      ac_status = #{record.acStatus,jdbcType=INTEGER},
+      ac_creat_time_change = #{record.acCreatTimeChange,jdbcType=VARCHAR},
+      ac_memo = #{record.acMemo,jdbcType=VARCHAR},
+      ac_creat_time = #{record.acCreatTime,jdbcType=TIMESTAMP},
+      ac_modify_time = #{record.acModifyTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangzi.blog.model.base.AticleComment" >
+    update aticle_comment
+    <set >
+      <if test="acAticleId != null" >
+        ac_aticle_id = #{acAticleId,jdbcType=BIGINT},
+      </if>
+      <if test="acContent != null" >
+        ac_content = #{acContent,jdbcType=VARCHAR},
+      </if>
+      <if test="acStatus != null" >
+        ac_status = #{acStatus,jdbcType=INTEGER},
+      </if>
+      <if test="acCreatTimeChange != null" >
+        ac_creat_time_change = #{acCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="acMemo != null" >
+        ac_memo = #{acMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="acCreatTime != null" >
+        ac_creat_time = #{acCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acModifyTime != null" >
+        ac_modify_time = #{acModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ac_id = #{acId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangzi.blog.model.base.AticleComment" >
+    update aticle_comment
+    set ac_aticle_id = #{acAticleId,jdbcType=BIGINT},
+      ac_content = #{acContent,jdbcType=VARCHAR},
+      ac_status = #{acStatus,jdbcType=INTEGER},
+      ac_creat_time_change = #{acCreatTimeChange,jdbcType=VARCHAR},
+      ac_memo = #{acMemo,jdbcType=VARCHAR},
+      ac_creat_time = #{acCreatTime,jdbcType=TIMESTAMP},
+      ac_modify_time = #{acModifyTime,jdbcType=TIMESTAMP}
+    where ac_id = #{acId,jdbcType=BIGINT}
+  </update>
+  <select id="getAticleCommentCountForAll" resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		aticle_comment
+  </select>
+  
+ <select id="getAticleComment" parameterType="com.liangzi.blog.model.extend.PageModel" resultType="com.liangzi.blog.model.base.AticleComment">
+ 	SELECT
+  		ac_id acId,
+		ac_aticle_id acAticleId,
+		ac_content acContent,
+		ac_status acStatus ,
+		ac_creat_time acCreatTime
+	FROM
+		aticle_comment
+	ORDER BY
+		ac_id DESC
+	LIMIT #{maxCount},#{pageSize}
+ </select>
+
+ <select id="getAticleCommentCountForSearch" parameterType="com.liangzi.blog.model.base.AticleComment" resultType="int">
+ 	SELECT
+		count(*)
+	FROM
+		aticle_comment
+	<where>
+		<if test="acAticleId != null and acAticleId != '' ">
+			ac_aticle_id  = #{acAticleId}
+		</if>
+		<if test="acStatus != null">
+			and ac_status = #{acStatus}
+		</if>
+	</where>
+ </select>
+ 
+ <select id="getForAticleCommentPageListForSearch" parameterType="com.liangzi.blog.model.extend.PageModelForAticleComment" resultType="com.liangzi.blog.model.base.AticleComment">
+ 	SELECT
+		ac_id acId,
+		ac_aticle_id acAticleId,
+		ac_content acContent,
+		ac_status acStatus ,
+		ac_creat_time acCreatTime
+	FROM
+		aticle_comment
+	<where>
+		<if test="acAticleId != null and acAticleId != '' ">
+			ac_aticle_id  = #{acAticleId}
+		</if>
+		<if test="acStatus != null">
+			and ac_status = #{acStatus}
+		</if>
+	</where>
+	ORDER BY
+			ac_id DESC
+	LIMIT #{maxCount},#{pageSize}	
+ </select>
+</mapper>

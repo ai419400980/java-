@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangzi.mgr.blog.dao.MgrBlacklistMapper" >
+  <resultMap id="BaseResultMap" type="com.liangzi.mgr.blog.model.base.MgrBlacklist" >
+    <id column="mb_id" property="mbId" jdbcType="BIGINT" />
+    <result column="mb_ip" property="mbIp" jdbcType="VARCHAR" />
+    <result column="mb_grade" property="mbGrade" jdbcType="INTEGER" />
+    <result column="mb_reason" property="mbReason" jdbcType="VARCHAR" />
+    <result column="mb_memo" property="mbMemo" jdbcType="VARCHAR" />
+    <result column="mb_creat_time_change" property="mbCreatTimeChange" jdbcType="VARCHAR" />
+    <result column="mb_creat_time" property="mbCreatTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mb_id, mb_ip, mb_grade, mb_reason, mb_memo, mb_creat_time_change, mb_creat_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.liangzi.mgr.blog.model.base.MgrBlacklistExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mgr_blacklist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from mgr_blacklist
+    where mb_id = #{mbId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from mgr_blacklist
+    where mb_id = #{mbId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liangzi.mgr.blog.model.base.MgrBlacklistExample" >
+    delete from mgr_blacklist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liangzi.mgr.blog.model.base.MgrBlacklist" >
+    insert into mgr_blacklist (mb_id, mb_ip, mb_grade, 
+      mb_reason, mb_memo, mb_creat_time_change, 
+      mb_creat_time)
+    values (#{mbId,jdbcType=BIGINT}, #{mbIp,jdbcType=VARCHAR}, #{mbGrade,jdbcType=INTEGER}, 
+      #{mbReason,jdbcType=VARCHAR}, #{mbMemo,jdbcType=VARCHAR}, #{mbCreatTimeChange,jdbcType=VARCHAR}, 
+      #{mbCreatTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangzi.mgr.blog.model.base.MgrBlacklist" >
+    insert into mgr_blacklist
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mbId != null" >
+        mb_id,
+      </if>
+      <if test="mbIp != null" >
+        mb_ip,
+      </if>
+      <if test="mbGrade != null" >
+        mb_grade,
+      </if>
+      <if test="mbReason != null" >
+        mb_reason,
+      </if>
+      <if test="mbMemo != null" >
+        mb_memo,
+      </if>
+      <if test="mbCreatTimeChange != null" >
+        mb_creat_time_change,
+      </if>
+      <if test="mbCreatTime != null" >
+        mb_creat_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mbId != null" >
+        #{mbId,jdbcType=BIGINT},
+      </if>
+      <if test="mbIp != null" >
+        #{mbIp,jdbcType=VARCHAR},
+      </if>
+      <if test="mbGrade != null" >
+        #{mbGrade,jdbcType=INTEGER},
+      </if>
+      <if test="mbReason != null" >
+        #{mbReason,jdbcType=VARCHAR},
+      </if>
+      <if test="mbMemo != null" >
+        #{mbMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="mbCreatTimeChange != null" >
+        #{mbCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="mbCreatTime != null" >
+        #{mbCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liangzi.mgr.blog.model.base.MgrBlacklistExample" resultType="java.lang.Integer" >
+    select count(*) from mgr_blacklist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mgr_blacklist
+    <set >
+      <if test="record.mbId != null" >
+        mb_id = #{record.mbId,jdbcType=BIGINT},
+      </if>
+      <if test="record.mbIp != null" >
+        mb_ip = #{record.mbIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mbGrade != null" >
+        mb_grade = #{record.mbGrade,jdbcType=INTEGER},
+      </if>
+      <if test="record.mbReason != null" >
+        mb_reason = #{record.mbReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mbMemo != null" >
+        mb_memo = #{record.mbMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mbCreatTimeChange != null" >
+        mb_creat_time_change = #{record.mbCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mbCreatTime != null" >
+        mb_creat_time = #{record.mbCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mgr_blacklist
+    set mb_id = #{record.mbId,jdbcType=BIGINT},
+      mb_ip = #{record.mbIp,jdbcType=VARCHAR},
+      mb_grade = #{record.mbGrade,jdbcType=INTEGER},
+      mb_reason = #{record.mbReason,jdbcType=VARCHAR},
+      mb_memo = #{record.mbMemo,jdbcType=VARCHAR},
+      mb_creat_time_change = #{record.mbCreatTimeChange,jdbcType=VARCHAR},
+      mb_creat_time = #{record.mbCreatTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangzi.mgr.blog.model.base.MgrBlacklist" >
+    update mgr_blacklist
+    <set >
+      <if test="mbIp != null" >
+        mb_ip = #{mbIp,jdbcType=VARCHAR},
+      </if>
+      <if test="mbGrade != null" >
+        mb_grade = #{mbGrade,jdbcType=INTEGER},
+      </if>
+      <if test="mbReason != null" >
+        mb_reason = #{mbReason,jdbcType=VARCHAR},
+      </if>
+      <if test="mbMemo != null" >
+        mb_memo = #{mbMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="mbCreatTimeChange != null" >
+        mb_creat_time_change = #{mbCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="mbCreatTime != null" >
+        mb_creat_time = #{mbCreatTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where mb_id = #{mbId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangzi.mgr.blog.model.base.MgrBlacklist" >
+    update mgr_blacklist
+    set mb_ip = #{mbIp,jdbcType=VARCHAR},
+      mb_grade = #{mbGrade,jdbcType=INTEGER},
+      mb_reason = #{mbReason,jdbcType=VARCHAR},
+      mb_memo = #{mbMemo,jdbcType=VARCHAR},
+      mb_creat_time_change = #{mbCreatTimeChange,jdbcType=VARCHAR},
+      mb_creat_time = #{mbCreatTime,jdbcType=TIMESTAMP}
+    where mb_id = #{mbId,jdbcType=BIGINT}
+  </update>
+  
+  <update id="updateByIp" parameterType="String">
+  		update mgr_blacklist set mb_grade = 2 ,mb_reason='二级流量攻击' where  mb_ip = #{ip}
+  </update>
+
+  <update id="updateByIpSql" parameterType="String">
+  		update mgr_blacklist set mb_grade = 2 ,mb_reason='SQL注入' where  mb_ip = #{ip}
+  </update>
+  
+  <select id="getBlacklistCountForAll" resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		mgr_blacklist
+  </select>
+  
+  <select id="getForPageList" parameterType="com.liangzi.blog.model.extend.PageModel" resultType="com.liangzi.mgr.blog.model.base.MgrBlacklist">
+  	SELECT
+  		mb_id mbId,
+		mb_ip mbIp,
+		mb_grade mbGrade,
+		mb_reason mbReason,
+		mb_creat_time mbCreatTime 
+	FROM
+		mgr_blacklist
+	ORDER BY
+		mb_id DESC
+	LIMIT #{maxCount},#{pageSize}
+  </select>
+  
+  <select id="getBlacklistCountForSearch" parameterType="com.liangzi.mgr.blog.model.base.MgrBlacklist" resultType="int">
+	  SELECT
+			count(*)
+		FROM
+			mgr_blacklist
+		<where>
+			<if test="mbIp != null and mbIp != '' ">
+				mb_ip = #{mbIp}
+			</if>
+		</where>
+  </select>
+  
+  <select id="getForBlacklistPageListForSearch" parameterType="com.liangzi.blog.model.extend.PageModelForBlacklist" resultType="com.liangzi.mgr.blog.model.base.MgrBlacklist">
+ 		SELECT
+			mb_id mbId,
+			mb_ip mbIp,
+			mb_grade mbGrade,
+			mb_reason mbReason,
+			mb_creat_time mbCreatTime
+		FROM
+			mgr_blacklist
+		<where>
+			<if test="mbIp != null and mbIp != '' ">
+				mb_ip = #{mbIp}
+			</if>
+		</where>
+		ORDER BY
+				mb_id DESC
+		LIMIT #{maxCount},#{pageSize}	
+  </select>
+</mapper>

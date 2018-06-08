@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangzi.blog.dao.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.liangzi.blog.model.base.Comment" >
+    <id column="co_id" property="coId" jdbcType="BIGINT" />
+    <result column="co_status" property="coStatus" jdbcType="INTEGER" />
+    <result column="co_creat_time_change" property="coCreatTimeChange" jdbcType="VARCHAR" />
+    <result column="co_memo" property="coMemo" jdbcType="VARCHAR" />
+    <result column="co_creat_time" property="coCreatTime" jdbcType="TIMESTAMP" />
+    <result column="co_modify_time" property="coModifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.liangzi.blog.model.base.Comment" extends="BaseResultMap" >
+    <result column="co_content" property="coContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    co_id, co_status, co_creat_time_change, co_memo, co_creat_time, co_modify_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    co_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.liangzi.blog.model.base.CommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.liangzi.blog.model.base.CommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from comment
+    where co_id = #{coId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from comment
+    where co_id = #{coId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liangzi.blog.model.base.CommentExample" >
+    delete from comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liangzi.blog.model.base.Comment" >
+    insert into comment (co_id, co_status, co_creat_time_change, 
+      co_memo, co_creat_time, co_modify_time, 
+      co_content)
+    values (#{coId,jdbcType=BIGINT}, #{coStatus,jdbcType=INTEGER}, #{coCreatTimeChange,jdbcType=VARCHAR}, 
+      #{coMemo,jdbcType=VARCHAR}, #{coCreatTime,jdbcType=TIMESTAMP}, #{coModifyTime,jdbcType=TIMESTAMP}, 
+      #{coContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangzi.blog.model.base.Comment" >
+    insert into comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="coId != null" >
+        co_id,
+      </if>
+      <if test="coStatus != null" >
+        co_status,
+      </if>
+      <if test="coCreatTimeChange != null" >
+        co_creat_time_change,
+      </if>
+      <if test="coMemo != null" >
+        co_memo,
+      </if>
+      <if test="coCreatTime != null" >
+        co_creat_time,
+      </if>
+      <if test="coModifyTime != null" >
+        co_modify_time,
+      </if>
+      <if test="coContent != null" >
+        co_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="coId != null" >
+        #{coId,jdbcType=BIGINT},
+      </if>
+      <if test="coStatus != null" >
+        #{coStatus,jdbcType=INTEGER},
+      </if>
+      <if test="coCreatTimeChange != null" >
+        #{coCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="coMemo != null" >
+        #{coMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="coCreatTime != null" >
+        #{coCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coModifyTime != null" >
+        #{coModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coContent != null" >
+        #{coContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liangzi.blog.model.base.CommentExample" resultType="java.lang.Integer" >
+    select count(*) from comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update comment
+    <set >
+      <if test="record.coId != null" >
+        co_id = #{record.coId,jdbcType=BIGINT},
+      </if>
+      <if test="record.coStatus != null" >
+        co_status = #{record.coStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.coCreatTimeChange != null" >
+        co_creat_time_change = #{record.coCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coMemo != null" >
+        co_memo = #{record.coMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coCreatTime != null" >
+        co_creat_time = #{record.coCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.coModifyTime != null" >
+        co_modify_time = #{record.coModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.coContent != null" >
+        co_content = #{record.coContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update comment
+    set co_id = #{record.coId,jdbcType=BIGINT},
+      co_status = #{record.coStatus,jdbcType=INTEGER},
+      co_creat_time_change = #{record.coCreatTimeChange,jdbcType=VARCHAR},
+      co_memo = #{record.coMemo,jdbcType=VARCHAR},
+      co_creat_time = #{record.coCreatTime,jdbcType=TIMESTAMP},
+      co_modify_time = #{record.coModifyTime,jdbcType=TIMESTAMP},
+      co_content = #{record.coContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update comment
+    set co_id = #{record.coId,jdbcType=BIGINT},
+      co_status = #{record.coStatus,jdbcType=INTEGER},
+      co_creat_time_change = #{record.coCreatTimeChange,jdbcType=VARCHAR},
+      co_memo = #{record.coMemo,jdbcType=VARCHAR},
+      co_creat_time = #{record.coCreatTime,jdbcType=TIMESTAMP},
+      co_modify_time = #{record.coModifyTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangzi.blog.model.base.Comment" >
+    update comment
+    <set >
+      <if test="coStatus != null" >
+        co_status = #{coStatus,jdbcType=INTEGER},
+      </if>
+      <if test="coCreatTimeChange != null" >
+        co_creat_time_change = #{coCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="coMemo != null" >
+        co_memo = #{coMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="coCreatTime != null" >
+        co_creat_time = #{coCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coModifyTime != null" >
+        co_modify_time = #{coModifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="coContent != null" >
+        co_content = #{coContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where co_id = #{coId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.liangzi.blog.model.base.Comment" >
+    update comment
+    set co_status = #{coStatus,jdbcType=INTEGER},
+      co_creat_time_change = #{coCreatTimeChange,jdbcType=VARCHAR},
+      co_memo = #{coMemo,jdbcType=VARCHAR},
+      co_creat_time = #{coCreatTime,jdbcType=TIMESTAMP},
+      co_modify_time = #{coModifyTime,jdbcType=TIMESTAMP},
+      co_content = #{coContent,jdbcType=LONGVARCHAR}
+    where co_id = #{coId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangzi.blog.model.base.Comment" >
+    update comment
+    set co_status = #{coStatus,jdbcType=INTEGER},
+      co_creat_time_change = #{coCreatTimeChange,jdbcType=VARCHAR},
+      co_memo = #{coMemo,jdbcType=VARCHAR},
+      co_creat_time = #{coCreatTime,jdbcType=TIMESTAMP},
+      co_modify_time = #{coModifyTime,jdbcType=TIMESTAMP}
+    where co_id = #{coId,jdbcType=BIGINT}
+  </update>
+  <select id="selectForCount" resultType="int" parameterType="int">
+ 	 SELECT
+		count(*)
+	FROM
+		comment
+	WHERE
+		co_status = #{value}
+  </select>
+  <select id="selectForComment" parameterType="com.liangzi.blog.model.extend.PageModel" resultType="com.liangzi.blog.model.base.Comment">
+  	SELECT
+  		co_id coId,
+  		co_content coContent,
+  		co_creat_time coCreatTime
+	FROM
+		comment
+	WHERE
+		co_status = #{status}
+	ORDER BY
+		co_id DESC
+	LIMIT #{maxCount},#{pageSize}
+  </select>
+  <select id="getCommentCountForAll" resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		comment
+  </select>
+  
+  <select id="getForPageList" parameterType="com.liangzi.blog.model.extend.PageModel" resultType="com.liangzi.blog.model.base.Comment">
+  	SELECT
+  		co_id coId,
+  		co_content coContent,
+  		co_status coStatus,
+  		co_creat_time coCreatTime
+	FROM
+		comment
+	ORDER BY
+		co_id DESC
+	LIMIT #{maxCount},#{pageSize}
+  </select>
+  <select id="getCommentCountForSearch" parameterType="com.liangzi.blog.model.base.Comment" resultType="int">
+ 	SELECT
+		count(*)
+	FROM
+		comment
+	<where>
+		<if test="coStatus != null">
+			co_status = #{coStatus}
+		</if>
+	</where>
+  </select>
+  
+   <select id="getForCommentPageListForSearch" parameterType="com.liangzi.blog.model.extend.PageModelForComment" resultType="com.liangzi.blog.model.base.Comment">
+ 	SELECT
+		co_id coId,
+  		co_content coContent,
+  		co_status coStatus,
+  		co_creat_time coCreatTime
+	FROM
+		comment
+	<where>
+		<if test="coStatus != null">
+			co_status = #{coStatus}
+		</if>
+	</where>
+	ORDER BY
+			co_id DESC
+	LIMIT #{maxCount},#{pageSize}	
+ </select>
+	
+</mapper>

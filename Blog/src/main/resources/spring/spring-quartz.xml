@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+	<!-- 线程执行器配置，用于任务注册 -->
+	<bean id="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="10" />
+		<property name="maxPoolSize" value="100" />
+		<property name="queueCapacity" value="500" />
+	</bean>
+	
+	<!-- 业务对象 -->
+	<!-- 每日统计 -->
+	<bean id="mgrCountEverydayQuartz" class="com.liangzi.mgr.blog.quartz.MgrCountEverydayQuartz" />
+	<!-- 流量统计 -->
+	<bean id="mgrCountIpQuartz" class="com.liangzi.mgr.blog.quartz.MgrCountForIpQuartz" />
+	
+	<!-- 调度业务 -->
+	<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="mgrCountEverydayQuartz" />
+		<property name="targetMethod" value="insertIntomgrCountEveryday" />
+	</bean>
+	<bean id="jobDetail1" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="mgrCountIpQuartz" />
+		<property name="targetMethod" value="countIp" />
+	</bean>
+	
+ 	<!-- 增加调度触发器 -->
+	<bean id="cronTrigger1" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		 <property name="jobDetail" ref="jobDetail1" />
+		 <property name="startDelay" value="10000" />
+		 <property name="repeatInterval" value="5000" />
+	</bean>
+
+	<!-- 增加调度触发器 -->
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="jobDetail" />
+		<property name="cronExpression" value="0 1 0 * * ?" />
+	</bean>
+	
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+		<list>
+			<ref bean="cronTrigger" />
+			<ref bean="cronTrigger1" />
+		</list>
+		</property>
+	</bean>
+</beans> 

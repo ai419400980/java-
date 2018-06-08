@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liangzi.mgr.blog.dao.MgrCountEverydayMapper" >
+  <resultMap id="BaseResultMap" type="com.liangzi.mgr.blog.model.base.MgrCountEveryday" >
+    <id column="mce_id" property="mceId" jdbcType="BIGINT" />
+    <result column="mce_ip_count" property="mceIpCount" jdbcType="BIGINT" />
+    <result column="mce_ip_for_phone" property="mceIpForPhone" jdbcType="BIGINT" />
+    <result column="mce_ip_for_pc" property="mceIpForPc" jdbcType="BIGINT" />
+    <result column="mce_operation_count" property="mceOperationCount" jdbcType="BIGINT" />
+    <result column="mce_search_count" property="mceSearchCount" jdbcType="BIGINT" />
+    <result column="mce_message_count" property="mceMessageCount" jdbcType="BIGINT" />
+    <result column="mce_praise_count" property="mcePraiseCount" jdbcType="BIGINT" />
+    <result column="mce_article_message_count" property="mceArticleMessageCount" jdbcType="BIGINT" />
+    <result column="mce_creat_time_change" property="mceCreatTimeChange" jdbcType="VARCHAR" />
+    <result column="mce_creat_time" property="mceCreatTime" jdbcType="TIMESTAMP" />
+    <result column="mce_memo" property="mceMemo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mce_id, mce_ip_count, mce_ip_for_phone, mce_ip_for_pc, mce_operation_count, mce_search_count, 
+    mce_message_count, mce_praise_count, mce_article_message_count, mce_creat_time_change, 
+    mce_creat_time, mce_memo
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.liangzi.mgr.blog.model.base.MgrCountEverydayExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mgr_count_everyday
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from mgr_count_everyday
+    where mce_id = #{mceId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from mgr_count_everyday
+    where mce_id = #{mceId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.liangzi.mgr.blog.model.base.MgrCountEverydayExample" >
+    delete from mgr_count_everyday
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.liangzi.mgr.blog.model.base.MgrCountEveryday" >
+    insert into mgr_count_everyday (mce_id, mce_ip_count, mce_ip_for_phone, 
+      mce_ip_for_pc, mce_operation_count, mce_search_count, 
+      mce_message_count, mce_praise_count, mce_article_message_count, 
+      mce_creat_time_change, mce_creat_time, mce_memo
+      )
+    values (#{mceId,jdbcType=BIGINT}, #{mceIpCount,jdbcType=BIGINT}, #{mceIpForPhone,jdbcType=BIGINT}, 
+      #{mceIpForPc,jdbcType=BIGINT}, #{mceOperationCount,jdbcType=BIGINT}, #{mceSearchCount,jdbcType=BIGINT}, 
+      #{mceMessageCount,jdbcType=BIGINT}, #{mcePraiseCount,jdbcType=BIGINT}, #{mceArticleMessageCount,jdbcType=BIGINT}, 
+      #{mceCreatTimeChange,jdbcType=VARCHAR}, #{mceCreatTime,jdbcType=TIMESTAMP}, #{mceMemo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.liangzi.mgr.blog.model.base.MgrCountEveryday" >
+    insert into mgr_count_everyday
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mceId != null" >
+        mce_id,
+      </if>
+      <if test="mceIpCount != null" >
+        mce_ip_count,
+      </if>
+      <if test="mceIpForPhone != null" >
+        mce_ip_for_phone,
+      </if>
+      <if test="mceIpForPc != null" >
+        mce_ip_for_pc,
+      </if>
+      <if test="mceOperationCount != null" >
+        mce_operation_count,
+      </if>
+      <if test="mceSearchCount != null" >
+        mce_search_count,
+      </if>
+      <if test="mceMessageCount != null" >
+        mce_message_count,
+      </if>
+      <if test="mcePraiseCount != null" >
+        mce_praise_count,
+      </if>
+      <if test="mceArticleMessageCount != null" >
+        mce_article_message_count,
+      </if>
+      <if test="mceCreatTimeChange != null" >
+        mce_creat_time_change,
+      </if>
+      <if test="mceCreatTime != null" >
+        mce_creat_time,
+      </if>
+      <if test="mceMemo != null" >
+        mce_memo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mceId != null" >
+        #{mceId,jdbcType=BIGINT},
+      </if>
+      <if test="mceIpCount != null" >
+        #{mceIpCount,jdbcType=BIGINT},
+      </if>
+      <if test="mceIpForPhone != null" >
+        #{mceIpForPhone,jdbcType=BIGINT},
+      </if>
+      <if test="mceIpForPc != null" >
+        #{mceIpForPc,jdbcType=BIGINT},
+      </if>
+      <if test="mceOperationCount != null" >
+        #{mceOperationCount,jdbcType=BIGINT},
+      </if>
+      <if test="mceSearchCount != null" >
+        #{mceSearchCount,jdbcType=BIGINT},
+      </if>
+      <if test="mceMessageCount != null" >
+        #{mceMessageCount,jdbcType=BIGINT},
+      </if>
+      <if test="mcePraiseCount != null" >
+        #{mcePraiseCount,jdbcType=BIGINT},
+      </if>
+      <if test="mceArticleMessageCount != null" >
+        #{mceArticleMessageCount,jdbcType=BIGINT},
+      </if>
+      <if test="mceCreatTimeChange != null" >
+        #{mceCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="mceCreatTime != null" >
+        #{mceCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mceMemo != null" >
+        #{mceMemo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.liangzi.mgr.blog.model.base.MgrCountEverydayExample" resultType="java.lang.Integer" >
+    select count(*) from mgr_count_everyday
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mgr_count_everyday
+    <set >
+      <if test="record.mceId != null" >
+        mce_id = #{record.mceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.mceIpCount != null" >
+        mce_ip_count = #{record.mceIpCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.mceIpForPhone != null" >
+        mce_ip_for_phone = #{record.mceIpForPhone,jdbcType=BIGINT},
+      </if>
+      <if test="record.mceIpForPc != null" >
+        mce_ip_for_pc = #{record.mceIpForPc,jdbcType=BIGINT},
+      </if>
+      <if test="record.mceOperationCount != null" >
+        mce_operation_count = #{record.mceOperationCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.mceSearchCount != null" >
+        mce_search_count = #{record.mceSearchCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.mceMessageCount != null" >
+        mce_message_count = #{record.mceMessageCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.mcePraiseCount != null" >
+        mce_praise_count = #{record.mcePraiseCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.mceArticleMessageCount != null" >
+        mce_article_message_count = #{record.mceArticleMessageCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.mceCreatTimeChange != null" >
+        mce_creat_time_change = #{record.mceCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mceCreatTime != null" >
+        mce_creat_time = #{record.mceCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.mceMemo != null" >
+        mce_memo = #{record.mceMemo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mgr_count_everyday
+    set mce_id = #{record.mceId,jdbcType=BIGINT},
+      mce_ip_count = #{record.mceIpCount,jdbcType=BIGINT},
+      mce_ip_for_phone = #{record.mceIpForPhone,jdbcType=BIGINT},
+      mce_ip_for_pc = #{record.mceIpForPc,jdbcType=BIGINT},
+      mce_operation_count = #{record.mceOperationCount,jdbcType=BIGINT},
+      mce_search_count = #{record.mceSearchCount,jdbcType=BIGINT},
+      mce_message_count = #{record.mceMessageCount,jdbcType=BIGINT},
+      mce_praise_count = #{record.mcePraiseCount,jdbcType=BIGINT},
+      mce_article_message_count = #{record.mceArticleMessageCount,jdbcType=BIGINT},
+      mce_creat_time_change = #{record.mceCreatTimeChange,jdbcType=VARCHAR},
+      mce_creat_time = #{record.mceCreatTime,jdbcType=TIMESTAMP},
+      mce_memo = #{record.mceMemo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liangzi.mgr.blog.model.base.MgrCountEveryday" >
+    update mgr_count_everyday
+    <set >
+      <if test="mceIpCount != null" >
+        mce_ip_count = #{mceIpCount,jdbcType=BIGINT},
+      </if>
+      <if test="mceIpForPhone != null" >
+        mce_ip_for_phone = #{mceIpForPhone,jdbcType=BIGINT},
+      </if>
+      <if test="mceIpForPc != null" >
+        mce_ip_for_pc = #{mceIpForPc,jdbcType=BIGINT},
+      </if>
+      <if test="mceOperationCount != null" >
+        mce_operation_count = #{mceOperationCount,jdbcType=BIGINT},
+      </if>
+      <if test="mceSearchCount != null" >
+        mce_search_count = #{mceSearchCount,jdbcType=BIGINT},
+      </if>
+      <if test="mceMessageCount != null" >
+        mce_message_count = #{mceMessageCount,jdbcType=BIGINT},
+      </if>
+      <if test="mcePraiseCount != null" >
+        mce_praise_count = #{mcePraiseCount,jdbcType=BIGINT},
+      </if>
+      <if test="mceArticleMessageCount != null" >
+        mce_article_message_count = #{mceArticleMessageCount,jdbcType=BIGINT},
+      </if>
+      <if test="mceCreatTimeChange != null" >
+        mce_creat_time_change = #{mceCreatTimeChange,jdbcType=VARCHAR},
+      </if>
+      <if test="mceCreatTime != null" >
+        mce_creat_time = #{mceCreatTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mceMemo != null" >
+        mce_memo = #{mceMemo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mce_id = #{mceId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liangzi.mgr.blog.model.base.MgrCountEveryday" >
+    update mgr_count_everyday
+    set mce_ip_count = #{mceIpCount,jdbcType=BIGINT},
+      mce_ip_for_phone = #{mceIpForPhone,jdbcType=BIGINT},
+      mce_ip_for_pc = #{mceIpForPc,jdbcType=BIGINT},
+      mce_operation_count = #{mceOperationCount,jdbcType=BIGINT},
+      mce_search_count = #{mceSearchCount,jdbcType=BIGINT},
+      mce_message_count = #{mceMessageCount,jdbcType=BIGINT},
+      mce_praise_count = #{mcePraiseCount,jdbcType=BIGINT},
+      mce_article_message_count = #{mceArticleMessageCount,jdbcType=BIGINT},
+      mce_creat_time_change = #{mceCreatTimeChange,jdbcType=VARCHAR},
+      mce_creat_time = #{mceCreatTime,jdbcType=TIMESTAMP},
+      mce_memo = #{mceMemo,jdbcType=VARCHAR}
+    where mce_id = #{mceId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="getEveryDayLogsCountForAll" resultType="int">
+  	SELECT
+		count(*)
+	FROM
+		mgr_count_everyday
+  </select>
+  
+  <select id="getEveryDayLogs" parameterType="com.liangzi.blog.model.extend.PageModel" resultType="com.liangzi.mgr.blog.model.base.MgrCountEveryday">
+  SELECT
+ 		mce_id mceId,
+ 		mce_ip_count mceIpCount,
+		mce_ip_for_phone mceIpForPhone,
+		mce_ip_for_pc mceIpForPc,
+		mce_operation_count mceOperationCount,
+		mce_search_count mceSearchCount,
+		mce_message_count mceMessageCount,
+		mce_praise_count mcePraiseCount,
+		mce_article_message_count mceArticleMessageCount,
+		mce_creat_time mceCreatTime,
+		mce_memo mceMemo
+	FROM
+		mgr_count_everyday
+	ORDER BY
+		mce_id DESC
+	LIMIT #{maxCount},#{pageSize}
+  </select>
+</mapper>

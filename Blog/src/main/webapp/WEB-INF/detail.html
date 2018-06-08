@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>$!{aticle.atTitle}</title>
+	<meta name="keywords" content="个人博客,梁钟霖个人博客,个人博客模板,梁钟霖,模板分享,个人博客模板,html模板" />
+	<meta name="description" content="梁钟霖个人博客网站----一个站在web后端设计之路的男青年个人博客网站，提供html模板和博客模板免费资源下载的个人原创网站。" />
+	<link href="css/base_detail.css" rel="stylesheet">
+	<link href="css/template.css" rel="stylesheet">
+	<link href="css/learn.css" rel="stylesheet">
+	<link href="css/mystyle.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/message/main.css" />
+	<link rel="stylesheet" type="text/css" href="mgr/Css/sweetalert.css" />
+	<link rel="icon" href="images/money.ico" type="image/x-icon"/> 
+</head>
+<body s>
+	<header>
+		<div id="logo"><a href="/"></a></div>
+		<nav class="topnav" id="topnav">
+			<a href="index.html"><span>首页</span><span class="en">Protal</span></a>
+			<a href="about.html"><span>关于我</span><span class="en">About</span></a>
+			<a href="slowlife.html"><span>慢生活</span><span class="en">Life</span></a>
+			<a href="knowledge.html"><span>学无止境</span><span class="en">Learn</span></a>
+			<a href="success.html"><span>模板分享</span><span class="en">Success</span></a>
+			<a href="mood.html"><span>碎言碎语</span><span class="en">Moods</span></a>
+			<a href="message.html"><span>留言版</span><span class="en">Message</span></a>
+		</nav>
+	</header>
+	<article class="blogs">
+		<h1 class="t_nav"><span>我们长路漫漫，只因学无止境。 </span><a href="/" class="n1">网站首页</a><a href="/" class="n2">文章内容</a></h1>
+		<div class="index_about">
+	    	<h2 class="c_titile" style="color: #099">$!{aticle.atTitle}</h2>
+	    	<input type="hidden" value="$!{aticle.atId}" id="aticleId">
+	    	<input type="hidden" value="$!{aticle.atTitle}" id="aticleTittle">
+			<p class="box_c">
+				<span class="d_time">发布时间：$!{aticle.atCreatTimeChange}</span>
+				<span>作者：$!{aticle.acAuthor}</span>
+				<span>阅读:[<a style="text-decoration:none;">$!{aticle.atReadCount}</a>]</span>
+				<span >点赞:[<a style="text-decoration:none;" id="counts">$!{aticle.atPraiseCount}</a>]</span>
+				<span>分类：[<a style="text-decoration:none;">$!{aticle.atTypeId}</a>]</span>
+			</p>
+			<ul class="infos">
+	    		$!{aticle.atContent}
+	    	</ul>	
+	    	<div class="line"></div>
+	    	<ul class="dianzan">
+				<li><a href="javascript:void(0);" onclick="addpraise(this.id)" id="$!{aticle.atId}">点 赞</a><span>[<a style="text-decoration:none;" id="count">$!{aticle.atPraiseCount}</a>]</span></li>
+			</ul>
+			<div class="ylcon">
+				<p class="tit">所有留言</p>
+				<div id="messDivId">
+				<div class="story" style="color: #756F71 ">
+					#foreach($indexlist in $listComment)
+					<div class="opbtn"></div>
+					</br><span class="story_t">游客   </span><span>$!{indexlist.acCreatTimeChange}</span></br>
+					<span class="story_m" style="color: #099">$!{indexlist.acContent}</span>
+					<div class="line" ></div>
+					#end
+				</div>
+				</div>
+			</div>
+		<div id="content" style="width: 700px; height: auto;margin-top:40px;">
+		<div class="wrap">
+			<div class="comment">
+				<div class="head-face">
+					<img src="images/1.jpg"/>
+					<p>碎言碎语</p>
+				</div>
+				<div class="content">
+					<div class="cont-box">
+						<textarea class="text" placeholder="请输入..." id="context"></textarea>
+					</div>
+					<div class="tools-box">
+						<div class="submit-btn"><input type="button" onClick="addComment()" value="提交评论" /></div>
+						</div>
+					</div>
+				</div>
+				<div id="info-show">
+					<ul></ul>
+				</div>
+			</div>
+		</div>
+		</div>
+		<aside class="right">
+		<div id="search_box" >
+			<input class="swap_value" id="s" type="text" placeholder="Search. . ." /> 
+			<input alt="Search" height="24" id="go" onclick="searching()" src="images/btn_search_box.gif"  title="Search" type="image" width="27" />
+		</div>	
+		<div class="rnav" style="color: #756F71 ">
+			<h2>栏目导航</h2>
+		    <ul>
+		        <li><a href="searchWorld.html?nowPageNum=1&searchText=打赏" >打赏</a></li>
+		        <li><a href="searchWorld.html?nowPageNum=1&searchText=模板" >html模板</a></li>
+		        <li><a href="searchWorld.html?nowPageNum=1&searchText=Nginx" >Nginx</a></li>
+		        <li><a href="searchWorld.html?nowPageNum=1&searchText=Tomcat" >Tomcat</a></li>
+				<li><a href="searchWorld.html?nowPageNum=1&searchText=SVN" >SVN</a></li>
+				<li><a href="searchWorld.html?nowPageNum=1&searchText=KDJ" >JDK</a></li>
+			</ul>      
+		</div>
+		<div class="news">
+			<h3 style="color: #756F71 "><p>最新<span>文章</span></p></h3>
+			<ul class="rank">
+				#foreach($indexlist in $listByNew)
+					<li><a href="getAticle.html?id=$!{indexlist.atId}"  >$!indexlist.atTitle</a></li>
+				#end
+			</ul>
+		   	<h3 class="ph" style="color: #756F71 "><p>点击<span>排行</span></p></h3>
+			<ul class="paih">
+				#foreach($indexlist in $listByCount)
+					<li><a href="getAticle.html?id=$!{indexlist.atId}">$!indexlist.atTitle</a></li>
+				#end
+			</ul>
+		    <h3 class="links">
+				<p style="color: #756F71 ">友情<span>链接</span></p>
+			</h3>
+				<ul class="website">
+					<li><a href="https://www.liangzl.com/">梁钟霖个人博客</a></li>
+				</ul>
+		    </div>
+		</aside>
+	</article>
+	<div style="position: fixed;right: 0;left: 0;bottom: 0;text-align:center; padding-bottom: 10px;" >
+		<div  style="color: #756F71 ">
+			<p>CopyRight© 2016版权所有  ICP备案号：闽ICP备号</p>
+			<p>Design by LiangZi QQ:419400980 </p>
+		</div>
+	</div>
+	<div id="loadPage" style="display:none;position:absolute; left:-1px; top:1px; width:100%; height:100%;position: fixed;moz-opacity: 0.3;filter:Alpha(opacity=50); opacity: 0.3; background-color:#555; z-index:1000;">
+	 	<img src="images/wait.gif" style="position: fixed;left: 48%;top:35%;"></img>
+ 	</div>
+	<script src="js/silder.js"></script>
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="mgr/Js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="mgr/Js/sweetalert-dev.js"></script>
+	<script src="js/myJs.js"></script>
+</body>
+</html>
